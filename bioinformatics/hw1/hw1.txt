@@ -1,0 +1,16 @@
+1) The output for FREQUENTWORDS("GAGTTAACGAACGCTTAAC", 3) will be "AAC" since
+it occurs 3 times. No other 3-mers appear as frequently as AAC.
+
+2)
+
+3)
+
+4)
+
+5)
+
+6)
+
+7)  a)
+    b)
+    c)
