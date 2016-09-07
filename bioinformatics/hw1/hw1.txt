@@ -1,11 +1,20 @@
-1) The output for FREQUENTWORDS("GAGTTAACGAACGCTTAAC", 3) will be "AAC" since
-it occurs 3 times. No other 3-mers appear as frequently as AAC.
+1) The output for FREQUENTWORDS("GAGTTAACGAACGCTTAAC", 3) will be "AAC"
+since it appears 3 times, versus three other 3-mers which appear twice.
 
-2)
+2) The run time for for Computing Frequencies is roughly (4^k) + (|Text| - k).
+It is faster than frequentwords when k is smaller.
 
 3)
 
-4)
+4) Mismatches(Text, k, d) // Finds the set of k-mer strings that differ by d.
+    for i <- 0 to |Text| - k
+        Pattern = Substring(Text, i, i + k)
+        Map <- <Key: Pattern, Value: Neighbors(Pattern, d)>
+
+    Neighbors(Pattern, d)
+        for i <- 0 to d
+            
+
 
 5)
 
