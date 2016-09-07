@@ -4,9 +4,16 @@ since it appears 3 times, versus three other 3-mers which appear twice.
 2) The run time for for Computing Frequencies is roughly (4^k) + (|Text| - k).
 It is faster than frequentwords when k is smaller.
 
-3)
+3) Mr Fuzzy's double-nested for loop is good because we are iterating through all the
+characters of both P and all the possible letters of A, then replacing the letters
+of Q (a tmp copy of P) at every character. The only issue is that Q is never initialized
+back to P at the end of each loop, so after we add Q into S, we should re-init the variable like:
+  Q<-P
+This should make it so that we don't accidentally overwrite the original string. This function is instead
+returning every possible combination, not every possible permutation
 
-4) HammingStrings(P, d)
+4) /* Fix me */
+HammingStrings(P, d)
     Initialize S <- empty set
     PossibleNeighbors = (|P|! / |P|! - d!)
     for i <- 0 to PossibleNeighbors
