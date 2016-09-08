@@ -4,21 +4,44 @@ since it appears 3 times, versus three other 3-mers which appear twice.
 2) The run time for for Computing Frequencies is roughly (4^k) + (|Text| - k).
 It is faster than frequentwords when k is smaller.
 
-3)
+3) Mr Fuzzy's double-nested for loop is good because we are iterating through all the
+characters of both P and all the possible letters of A, then replacing the letters
+of Q (a tmp copy of P) at every character. The only issue is that Q is never initialized
+back to P at the end of each loop, so after we add Q into S, we should re-init the variable like:
+  Q<-P
+This should make it so that we don't accidentally overwrite the original string. This function is instead
+returning every possible combination, not every possible permutation
 
-4) Mismatches(Text, k, d) // Finds the set of k-mer strings that differ by d.
+4) /* Fix me */
+HammingStrings(P, d)
+    Initialize S <- empty set
+    PossibleNeighbors = (|P|! / |P|! - d!)
+    for i <- 0 to PossibleNeighbors
+        Text(P, 
+        
+        
+
+
+5) Palindromes(Text, k)
     for i <- 0 to |Text| - k
-        Pattern = Substring(Text, i, i + k)
-        Map <- <Key: Pattern, Value: Neighbors(Pattern, d)>
+        String curr = Substring(Text, i, k) // Grab the substring
+        String tmp = Reverse(curr) // Reverses string
+        Complement(tmp) // Converts all nucleotides to its complement (e.g. A->T, G->C)
+        if (tmp == curr)
+            print(curr)
+    
+    The run time for Palindromes would be (|Text| - k)*k^2, since we first have to iterate through the |Text| - k. We have to iterate
+    through the substring of Text k number of times for the reverse and complement functions. substring should be fast since it would
+    be a native function of the programming language. So, it would be O(n^3) since all in all we are iterating through the string 3 times.
+        
+        
+    
 
-    Neighbors(Pattern, d)
-        for i <- 0 to d
-            
-
-
-5)
-
-6)
+6) You can tell where the replication origin is by looking at where the skew changes
+a negative to positive slope (the global minimum). We know this because the skew diagram
+shows us the difference between G & C nucleotides, and the oriC is where we find the greatest
+difference. Also, since bacterial genomes are circular, the last position on a skew diagram flows directly
+over into the beginning position for the skew diagram.
 
 7)  a)
     b)
