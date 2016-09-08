@@ -17,9 +17,8 @@ HammingStrings(P, d)
     Initialize S <- empty set
     PossibleNeighbors = (|P|! / |P|! - d!)
     for i <- 0 to PossibleNeighbors
-        Text(P, 
-        
-        
+        Text(P,
+
 
 
 5) Palindromes(Text, k)
@@ -29,13 +28,13 @@ HammingStrings(P, d)
         Complement(tmp) // Converts all nucleotides to its complement (e.g. A->T, G->C)
         if (tmp == curr)
             print(curr)
-    
+
     The run time for Palindromes would be (|Text| - k)*k^2, since we first have to iterate through the |Text| - k. We have to iterate
     through the substring of Text k number of times for the reverse and complement functions. substring should be fast since it would
     be a native function of the programming language. So, it would be O(n^3) since all in all we are iterating through the string 3 times.
-        
-        
-    
+
+
+
 
 6) You can tell where the replication origin is by looking at where the skew changes
 a negative to positive slope (the global minimum). We know this because the skew diagram
@@ -43,6 +42,39 @@ shows us the difference between G & C nucleotides, and the oriC is where we find
 difference. Also, since bacterial genomes are circular, the last position on a skew diagram flows directly
 over into the beginning position for the skew diagram.
 
-7)  a)
+7)  Given the following motifs:
+CG CC TG AA TA
+CG AG AA AG TT
+CG CC GG AA TT
+GG CA TG AA TA
+TA AA GG AA TC
+TA AT TT AA TT
+CA AT TA AA TT
+GA CA TG AA TC
+TG GC TA AT TT
+CA AC TG AA TT
+
+COL1: C5, G2, T3, A0
+COL2: C0, G5, T0, A5
+COL3: C4, G1, T0, A5
+COL4: C4, G1, T2, A3
+
+COL5: C0, G2, T7, A1
+COL6: C0, G6, T1, A3
+
+COL7: C0, G0, T0, A10
+COL8: C0, G1, T1, A8
+
+COL9: C0, G0, T0, T10
+COL10: C2, G0, T6, A2
+
+
+
+    a) Our Profile(Motifs) would be the following:
+        A:  0 .5 .5 .3 .1 .3 1 .8 0 .2
+        C: .5  0 .4 .4  0  0 0  0 0 .2
+        G: .2 .5 .1 .1 .2 .6 0 .1 0  0
+        T: .3  0  0 .2 .7 .1 0 .1 1 .6
+
     b)
     c)
