@@ -1,0 +1,24 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname lab6) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+; Exercise 1
+; A ListofStrings contains:
+; 1) empty
+; 2) (list string string ...)
+; A list of strings contains strings
+; Template:
+; (processes-los los)
+; (cond
+;  [(empty? los) ...]
+;  [(string? (car los)) ...]
+;  [(list? los) (process (cdr los))]))
+
+; Exercise 2
+(define (has-word? los s)
+  (cond
+    [(empty? los) #false]
+    [(string=? (car los) s) #true]
+    [(list? los) (has-word? (cdr los) s)]
+    )
+  )
+

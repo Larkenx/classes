@@ -1,0 +1,63 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname assignment7) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+; Exercise 1
+; A frequency is a:
+; (make-frequency String Number)
+; where the string is a word, and the number is the occurrence of
+; the string
+
+(define-struct frequency (word number))
+
+; Exercise 2
+;
+; A ListofStrings is one of:
+; - empty
+; - (cons String ListofStrings)
+;
+; A ListofFrequency is one of:
+; - empty
+; - (cons (make-frequency word number) ListofFrequency)
+
+; Exercise 3
+; count-word: ListofFrequency String -> ListofFrequency
+(define (count-word LoF word)
+  (cond
+    [(empty? LoF) (cons (make-frequency word 1) LoF)]
+    [(equal? word (frequency-word (first LoF)))
+     (cons
+      (make-frequency word (+ (frequency-number (first LoF)) 1))
+      (rest LoF))]
+    [else (cons (first LoF) (count-word (rest LoF) word))]
+    ) 
+  )
+
+(check-expect (count-word
+               (list
+                (make-frequency "hello" 1)
+                (make-frequency "hi" 2))
+               "hey")
+              (list
+               (make-frequency "hello" 1)
+               (make-frequency "hi" 2)
+               (make-frequency "hey" 1)))
+
+(check-expect (count-word
+               (list
+                (make-frequency "hello" 1)
+                (make-frequency "hi" 2))
+               "hi")
+              (list
+               (make-frequency "hello" 1)
+               (make-frequency "hi" 3)))
+
+; Exercise 4
+; count-all-words: ListofStrings -> ListofFrequency
+; Given a list of strings, create a list of frequency that uses the
+; count-word function to calculate the number of times a string occurs
+; in the given ListofStrings. Each branch of the cond should return a
+; ListofFrequency.
+
+(define (count-all-words LoS)
+  (cond
+    [(

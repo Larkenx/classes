@@ -1,0 +1,31 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname lab15) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; A ByTwo is one of:
+;; - empty
+;; - (make-two Number NUmber ByTwo)
+(define-struct two (first second rest))
+
+; Length 3
+(define btexample1
+  (make-two 10 10 (make-two 20 20 (make-two 10 20 empty))))
+
+(define (bylength bt)
+  (cond
+    [(empty? bt) 0]
+    [else (+ 1 (bylength (two-rest bt)))]))
+
+(check-expect (bylength btexample1) 3)
+
+(define (bysum bt)
+  (cond
+    [(empty? bt) 0]
+    [else (+ (two-first bt) (two-second bt) (bysum (two-rest bt)))]))
+
+(check-expect (bysum btexample1) 90)
+
+(define (byproduct bt)
+  (cond
+    [(empty? bt) 1]
+    [else (* (two-first bt) (two-second bt) (bysum (two-rest bt)))]))
+

@@ -1,0 +1,84 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname assignment5) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+(require 2htdp/image)
+(require 2htdp/universe)
+
+;;; Exercise 1
+;
+; quadrants: Number String String String String -> Image
+; Create an image that produces four images placed in quadrants
+; (quadrants dimension color1 color2 color3 color4) ...
+
+(define (quadrants dimension color1 color2 color3 color4)
+   (above
+    (beside (overlay
+             (circle (/ dimension 2) "solid" color1)
+             (square dimension "solid" "white")) 
+            (overlay
+             (square dimension "solid" color2)
+             (square dimension "solid" "white")))
+    (beside (overlay
+             (ellipse dimension (/ dimension 2) "solid" color3)         
+             (square dimension "solid" "white"))
+            (overlay
+             (triangle dimension "solid" color4)
+             (square dimension "solid" "white")))))
+
+(quadrants 40 "red" "blue" "green" "purple")
+
+;;; Exercise 2
+;
+; (define-struct sun (sun))
+; A Sun is a structure:
+; (make-sun sun)
+; A sun is located at the center of a solar system, therefore the
+; distance of the sun to the center is zero.
+
+;;; Exercise 3
+;
+; (define-struct planet (distance inner-planet))
+; A planet is a structure:
+; (make-planet Number planet)
+; A planet contains both the distance to the next inner planet and the
+; inner planet itself.
+
+;;; Exercise 4
+;
+; (define-struct solar-object (celestial))
+; A solar-object is one of:
+; ------------------------
+; -A planet
+; -A sun
+; ------------------------
+
+;;; Exercise 5
+;
+; process-sun: sun-> ...
+; (process-sun a-sun) ...
+
+; (define (process-sun a-sun)
+;  (cond
+;    [(sun? a-sun) (process-sun a-sun)...]
+;    [(empty? a-sun) ...]
+;    )
+;  )
+; (check-expect (process-sun (make-sun ...)) ...)
+
+; process-planet: Planet -> ...
+; (process-planet neptune) ...
+
+; (define (process-planet a-planet)
+;  (cond
+;    [(number=? (planet-distance a-planet) ...)]
+;    [(planet? (planet-planet a-planet)
+;              (process-planet (planet-planet a-planet)))]
+;    [(empty? (planet-planet a-planet) ...)]
+;    )
+;  )
+
+
+
+
+
+
