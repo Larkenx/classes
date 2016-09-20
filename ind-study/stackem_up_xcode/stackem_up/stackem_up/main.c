@@ -26,21 +26,27 @@ typedef struct pair {
 
 void push(pair_t * root, int a, int b) {
     pair_t * current = root;
-    while (current->next != NULL) {
-        current = current->next;
+    if ((current->a == b) && (current->b == a)) {
+        /* Found duplicate */
+        return;
+    } else {
+        while (current->next != NULL) {
+            current = current->next;
+            /* Found duplicate */
+            if ((current->a == b) && (current->b == a))
+                return;
+        }
+        printf("Pushing pair (%d, %d)\n", a, b);
+        current->next = malloc(sizeof(pair_t));
+        current->next->a = a;
+        current->next->b = b;
     }
-    
-    /* now we can add a new variable */
-    current->next = malloc(sizeof(pair_t));
-    printf("\nGot new pair: %d %d\n", a, b);
-    current->next->a = a;
-    current->next->b = b;
 }
 
 void delete_list(pair_t *head) {
-    pair_t  *current = head,
+    pair_t *current = head,
     *next = head;
-    
+
     while (current) {
         next = current->next;
         free(current);
@@ -48,14 +54,14 @@ void delete_list(pair_t *head) {
     }
 }
 
-bool pair_exists(pair_t * root, int a, int b) {
-    pair_t * current = root;
+void print_list(pair_t * head) {
+    pair_t * current = head;
+    printf("Begin");
     while (current != NULL) {
-        if (((current->a == a) && (current->b == b)) || ((current->a == b) && (current->b == a))) {
-            return true;
-        }
+        printf("\nPair: %d %d", current->a, current->b);
+        current = current->next;
     }
-    return false;
+    printf("\nEnd\n");
 }
 
 int find_index(int arr[], int key) {
@@ -69,7 +75,7 @@ int find_index(int arr[], int key) {
 }
 
 void swap(int * arr[], int a, int b) {
-    
+
 }
 
 void printCards(int cards[]) {
@@ -77,7 +83,7 @@ void printCards(int cards[]) {
         int suite = (cards[i] - 1) / 13;
         char * cardString = malloc(snprintf(NULL, 0, "%s", "Diamonds") + 1);
         char * suiteString;
-        
+
         /* Get the suite */
         if (suite == 0) {
             suiteString = "Clubs";
@@ -102,6 +108,7 @@ void printCards(int cards[]) {
         }
         /* Print the card */
         printf("%s of %s\n",cardString, suiteString);
+        free(cardString);
     }
 }
 
@@ -111,14 +118,14 @@ int main(int argc, const char * argv[]) {
     for (int i = 0; i < 52; i++) {
         originalDeck[i] = i + 1;
     }
-    
-    
+
+
     char line[150];
     /* Get number of cases */
     int cases;
     fgets(line, sizeof line, stdin);
     sscanf(line, "%d", &cases);
-    
+
     /* Skip the first empty line */
     fgets(line, sizeof line, stdin);
     /* For each case... */
@@ -146,36 +153,32 @@ int main(int argc, const char * argv[]) {
                 }
             }
         }
+        
         /* Now we've put all our shuffled cards in the 2d array shuffles
          * We're ready to go through and compare each shuffle against the original.
          * We will record which indices have swapped. (e.g. 1 swapped with 52, 2 swapped with 51.)
          * We will use a linked list of 'pairs' defined at the top to store the swapped indices */
-        
+
         pair_t * swapped_pairs[n];
         for (int i = 0; i < n; i++) {
-            pair_t * currentPairs = malloc(sizeof(pair_t));
+            pair_t currentPair;
+            printf("\nInitial pair: %d %d\n", currentPair.a, currentPair.b);
             for (int j = 0; j < 52; j++) {
                 /* If we find a card in a swapped spot */
                 if (originalDeck[j] != shuffles[i][j]) {
-                    int swappedIndex = j;
-                    int oriIndex = find_index(originalDeck, shuffles[i][j]);
-                    if (! pair_exists(currentPairs, swappedIndex, oriIndex))
-                        push(currentPairs, oriIndex, swappedIndex);
+                    push(&currentPair, originalDeck[j], shuffles[i][j]);
                 }
             }
-            swapped_pairs[i] = currentPairs;
-            delete_list(currentPairs);
+            swapped_pairs[i] = &currentPair;
+            print_list(swapped_pairs[i]);
+            delete_list(&currentPair);
+            print_list(swapped_pairs[i]);
         }
-        printf("reached here");
-        
-        /* Got all of our indexes to shuffle for each shuffle */
-        /* Let's now apply the shuffles given to us */
-        //        while (fgets(line, sizeof line, stdin) != NULL) {
-        //
-        //        }
+
+
         /* End case */
     }
-    
-    
+
+
     return 0;
 }
