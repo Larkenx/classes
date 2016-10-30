@@ -14,17 +14,21 @@ def getMax(s, i, j, match):
 
 def LCSBackTrack(s1, s2):
     s = [[0 for y in range(len(s2) + 1)] for x in range((len(s1) + 1))]
-    backTrack = [[0 for y in range(len(s1) + 1)] for x in range((len(s2) + 1))]
-    v = len(s2)
-    w = len(s1)
+    backTrack = [[0 for y in range(len(s2) + 1)] for x in range((len(s1) + 1))]
+    v = len(s1)
+    w = len(s2)
     for i in range(0, v+1):
-        s[0][i] = 0
+        s[i][0] = 0
 
     for j in range(0, w+1):
-        s[j][0] = 0
+        s[0][j] = 0
 
-    for i in range(1, v+1):
-        for j in range(1, w+1):
+    for row in s:
+        print row
+
+    for j in range(1, v+1):
+        for i in range(1, w+1):
+            print "(" + str(j) + "," + str(i) + ")"
             if (s2[i-1] == s1[j-1]):
                 match = 1
             else:
@@ -67,11 +71,11 @@ def OutputLCS(backTrack, v, i, j):
         OutputLCS(backTrack, v, i - 1, j - 1)
         buf = v[i-1] + buf
 
-s1 = "AA"
-s2 = "AA"
+s1 = "AB" # 2
+s2 = "GAB" # 3
+OutputLCS(LCSBackTrack(s1,s2), s1, len(s1) , len(s2))
 print len(s1)
 print len(s2)
-OutputLCS(LCSBackTrack(s1,s2), s1, len(s1) , len(s2))
 f = open("output.txt", "w")
 print buf
 f.write(buf)
