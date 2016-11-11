@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace ProjectOne
 {
     partial class frmBuffetOptions
     {
@@ -44,6 +44,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(169, 175);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(97, 57);
@@ -67,7 +68,7 @@
             this.MinimizeBox = false;
             this.Name = "frmBuffetOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "A290 Buffet Options";
+            this.Text = "Project One Options";
             this.ResumeLayout(false);
 
         }

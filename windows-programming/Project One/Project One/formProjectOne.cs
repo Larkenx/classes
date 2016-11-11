@@ -12,6 +12,7 @@ namespace Project_One
 {
     public partial class formProjectOne : Form
     {
+        // Boolean value to indicate whether or not the border has been drawn
         bool borderDrawn = false;
 
         public formProjectOne()
