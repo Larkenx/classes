@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace ProjectOne
 {
-    partial class frmBuffet
+    partial class ProjectOne
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuffet));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectOne));
             this.btnSelectPicture = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.picShowPicture = new System.Windows.Forms.PictureBox();
@@ -45,7 +45,7 @@
             // btnSelectPicture
             // 
             this.btnSelectPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectPicture.Location = new System.Drawing.Point(441, 15);
+            this.btnSelectPicture.Location = new System.Drawing.Point(185, 8);
             this.btnSelectPicture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSelectPicture.Name = "btnSelectPicture";
             this.btnSelectPicture.Size = new System.Drawing.Size(128, 35);
@@ -57,7 +57,7 @@
             // btnQuit
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Location = new System.Drawing.Point(441, 62);
+            this.btnQuit.Location = new System.Drawing.Point(491, 439);
             this.btnQuit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(128, 35);
@@ -73,11 +73,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picShowPicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picShowPicture.Location = new System.Drawing.Point(9, 9);
+            this.picShowPicture.Location = new System.Drawing.Point(9, 128);
             this.picShowPicture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.picShowPicture.MinimumSize = new System.Drawing.Size(340, 267);
             this.picShowPicture.Name = "picShowPicture";
-            this.picShowPicture.Size = new System.Drawing.Size(422, 422);
+            this.picShowPicture.Size = new System.Drawing.Size(474, 351);
             this.picShowPicture.TabIndex = 2;
             this.picShowPicture.TabStop = false;
             this.picShowPicture.MouseLeave += new System.EventHandler(this.picShowPicture_MouseLeave);
@@ -90,8 +90,7 @@
             // 
             // btnEnlarge
             // 
-            this.btnEnlarge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnlarge.Location = new System.Drawing.Point(489, 288);
+            this.btnEnlarge.Location = new System.Drawing.Point(103, 65);
             this.btnEnlarge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEnlarge.Name = "btnEnlarge";
             this.btnEnlarge.Size = new System.Drawing.Size(32, 35);
@@ -103,8 +102,7 @@
             // 
             // btnShrink
             // 
-            this.btnShrink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShrink.Location = new System.Drawing.Point(489, 332);
+            this.btnShrink.Location = new System.Drawing.Point(19, 65);
             this.btnShrink.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnShrink.Name = "btnShrink";
             this.btnShrink.Size = new System.Drawing.Size(32, 35);
@@ -117,7 +115,7 @@
             // btnDrawBorder
             // 
             this.btnDrawBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDrawBorder.Location = new System.Drawing.Point(441, 106);
+            this.btnDrawBorder.Location = new System.Drawing.Point(332, 8);
             this.btnDrawBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDrawBorder.Name = "btnDrawBorder";
             this.btnDrawBorder.Size = new System.Drawing.Size(128, 35);
@@ -129,9 +127,8 @@
             // 
             // lblX
             // 
-            this.lblX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(441, 209);
+            this.lblX.Location = new System.Drawing.Point(27, 15);
             this.lblX.Name = "lblX";
             this.lblX.Size = new System.Drawing.Size(24, 20);
             this.lblX.TabIndex = 6;
@@ -139,9 +136,8 @@
             // 
             // lblY
             // 
-            this.lblY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(441, 239);
+            this.lblY.Location = new System.Drawing.Point(111, 15);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(24, 20);
             this.lblY.TabIndex = 7;
@@ -150,7 +146,7 @@
             // btnOptions
             // 
             this.btnOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOptions.Location = new System.Drawing.Point(441, 149);
+            this.btnOptions.Location = new System.Drawing.Point(487, 8);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(128, 38);
             this.btnOptions.TabIndex = 8;
@@ -162,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 440);
+            this.ClientSize = new System.Drawing.Size(628, 488);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.lblY);
             this.Controls.Add(this.lblX);
@@ -175,7 +171,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmBuffet";
-            this.Text = "frmBuffet";
+            this.Text = "Project One";
             this.Load += new System.EventHandler(this.frmBuffet_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picShowPicture)).EndInit();
             this.ResumeLayout(false);

@@ -3,6 +3,7 @@ Properties Altered (differing from guide material):
 formProjectOne:
 CancelButton: btnQuit
 AcceptButton: btnSelectPicture
+BackColor: Honeydew
 
 picShowPicure:
 Anchor: Top, Bottom, Left, Right
