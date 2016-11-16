@@ -43,62 +43,62 @@
             // 
             // btnShowNames
             // 
-            this.btnShowNames.Location = new System.Drawing.Point(256, 36);
+            this.btnShowNames.Location = new System.Drawing.Point(288, 41);
             this.btnShowNames.Margin = new System.Windows.Forms.Padding(2);
             this.btnShowNames.Name = "btnShowNames";
-            this.btnShowNames.Size = new System.Drawing.Size(120, 29);
+            this.btnShowNames.Size = new System.Drawing.Size(152, 29);
             this.btnShowNames.TabIndex = 0;
-            this.btnShowNames.Text = "Show Control Names";
+            this.btnShowNames.Text = "Show Controls";
             this.btnShowNames.UseVisualStyleBackColor = true;
             this.btnShowNames.Click += new System.EventHandler(this.btnShowNames_Click);
             // 
             // txtCollections
             // 
-            this.txtCollections.Location = new System.Drawing.Point(256, 12);
+            this.txtCollections.Location = new System.Drawing.Point(288, 11);
             this.txtCollections.Margin = new System.Windows.Forms.Padding(2);
             this.txtCollections.Name = "txtCollections";
             this.txtCollections.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCollections.Size = new System.Drawing.Size(120, 20);
+            this.txtCollections.Size = new System.Drawing.Size(152, 26);
             this.txtCollections.TabIndex = 1;
             this.txtCollections.Text = "The Simpsons";
             this.txtCollections.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnHomer
             // 
-            this.btnHomer.Location = new System.Drawing.Point(31, 110);
+            this.btnHomer.Location = new System.Drawing.Point(31, 115);
             this.btnHomer.Margin = new System.Windows.Forms.Padding(2);
             this.btnHomer.Name = "btnHomer";
-            this.btnHomer.Size = new System.Drawing.Size(69, 23);
+            this.btnHomer.Size = new System.Drawing.Size(69, 27);
             this.btnHomer.TabIndex = 2;
             this.btnHomer.Text = "Homer";
             this.btnHomer.UseVisualStyleBackColor = true;
             // 
             // btnLisa
             // 
-            this.btnLisa.Location = new System.Drawing.Point(31, 191);
+            this.btnLisa.Location = new System.Drawing.Point(31, 211);
             this.btnLisa.Margin = new System.Windows.Forms.Padding(2);
             this.btnLisa.Name = "btnLisa";
-            this.btnLisa.Size = new System.Drawing.Size(69, 23);
+            this.btnLisa.Size = new System.Drawing.Size(69, 27);
             this.btnLisa.TabIndex = 3;
             this.btnLisa.Text = "Lisa";
             this.btnLisa.UseVisualStyleBackColor = true;
             // 
             // btnBart
             // 
-            this.btnBart.Location = new System.Drawing.Point(31, 164);
+            this.btnBart.Location = new System.Drawing.Point(31, 179);
             this.btnBart.Margin = new System.Windows.Forms.Padding(2);
             this.btnBart.Name = "btnBart";
-            this.btnBart.Size = new System.Drawing.Size(69, 23);
+            this.btnBart.Size = new System.Drawing.Size(69, 27);
             this.btnBart.TabIndex = 4;
             this.btnBart.Text = "Bart";
             this.btnBart.UseVisualStyleBackColor = true;
             // 
             // btnMarge
             // 
-            this.btnMarge.Location = new System.Drawing.Point(31, 137);
+            this.btnMarge.Location = new System.Drawing.Point(31, 147);
             this.btnMarge.Margin = new System.Windows.Forms.Padding(2);
             this.btnMarge.Name = "btnMarge";
-            this.btnMarge.Size = new System.Drawing.Size(69, 23);
+            this.btnMarge.Size = new System.Drawing.Size(69, 27);
             this.btnMarge.TabIndex = 5;
             this.btnMarge.Text = "Marge";
             this.btnMarge.UseVisualStyleBackColor = true;
@@ -108,7 +108,7 @@
             this.btnMaggie.Location = new System.Drawing.Point(31, 83);
             this.btnMaggie.Margin = new System.Windows.Forms.Padding(2);
             this.btnMaggie.Name = "btnMaggie";
-            this.btnMaggie.Size = new System.Drawing.Size(69, 23);
+            this.btnMaggie.Size = new System.Drawing.Size(69, 27);
             this.btnMaggie.TabIndex = 6;
             this.btnMaggie.Text = "Maggie";
             this.btnMaggie.UseVisualStyleBackColor = true;
@@ -116,10 +116,10 @@
             // btnExit
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(319, 234);
+            this.btnExit.Location = new System.Drawing.Point(365, 253);
             this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(69, 23);
+            this.btnExit.Size = new System.Drawing.Size(75, 34);
             this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Quit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -143,7 +143,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(399, 268);
+            this.ClientSize = new System.Drawing.Size(451, 318);
             this.Controls.Add(this.picSimpsons);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnMaggie);
@@ -157,7 +157,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "formCollections";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Collections - Project Two";
             this.Load += new System.EventHandler(this.frmCollections_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picSimpsons)).EndInit();

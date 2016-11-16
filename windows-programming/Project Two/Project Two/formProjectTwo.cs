@@ -16,7 +16,7 @@ namespace Project_Two
         bool borderDrawn = false;
         // Boolean value to indicate whether or not the application should prompt
         // the user if they want to exit or not
-        bool PromptOnExit = true;
+        bool PromptOnExit = false;
 
         public formProjectTwo()
         {
@@ -159,13 +159,13 @@ namespace Project_Two
         {
             // When the user clicks the option buttons, open up a new formOptions instance and show it
             formOptions options = new formOptions();
-            options.Show();
+            options.ShowDialog();
         }
 
         private void btnCollections_Click(object sender, EventArgs e)
         {
             formCollections collections = new formCollections();
-            collections.Show();
+            collections.ShowDialog();
         }
     }
 }
