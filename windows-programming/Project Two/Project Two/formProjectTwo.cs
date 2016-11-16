@@ -154,5 +154,18 @@ namespace Project_Two
                 // If we reach this point, the application will close because the user selected 'yes'
             }
         }
+
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            // When the user clicks the option buttons, open up a new formOptions instance and show it
+            formOptions options = new formOptions();
+            options.Show();
+        }
+
+        private void btnCollections_Click(object sender, EventArgs e)
+        {
+            formCollections collections = new formCollections();
+            collections.Show();
+        }
     }
 }

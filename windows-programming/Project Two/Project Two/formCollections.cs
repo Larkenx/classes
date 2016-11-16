@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Project_Two
 {
-    public partial class frmCollections : Form
+    public partial class formCollections : Form
     {
-        public frmCollections()
+        public formCollections()
         {
             InitializeComponent();
         }
@@ -32,8 +32,13 @@ namespace Project_Two
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            frmBuffetOptions frmBuffetOptionsDialog = new frmBuffetOptions();
+            formOptions frmBuffetOptionsDialog = new formOptions();
             frmBuffetOptionsDialog.Show();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

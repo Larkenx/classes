@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Project_Two
 {
-    public partial class frmBuffetOptions : Form
+    public partial class formOptions : Form
     {
-        public frmBuffetOptions()
+        public formOptions()
         {
             InitializeComponent();
         }
