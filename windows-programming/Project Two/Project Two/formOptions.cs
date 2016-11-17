@@ -32,14 +32,23 @@ namespace Project_Two
             Close();
         }
 
+        private void updateForeground()
+        {
+            // Make sure that the foreground is visible desptie what coor the bg is
+            optBackgroundBlue.ForeColor = optBackgroundBlue.ForeColor == bgColor ? Color.Black : Color.Blue;
+            optBackgroundRed.ForeColor = optBackgroundRed.ForeColor == bgColor ? Color.Black : Color.Red;
+            optBackgroundGreen.ForeColor = optBackgroundGreen.ForeColor == bgColor ? Color.Black : Color.Green;
+        }
+
         private void optBackgroundRed_CheckedChanged(object sender, EventArgs e)
         {
             // Change the background color of the options form to red
             bgColor = Color.Red;
             BackColor = bgColor;
-            MessageBox.Show("Gets here");
+            MessageBox.Show("Redrawing border");
             // Draw the border again
             drawBorder();
+            updateForeground();
         }
 
         private void optBackgroundBlue_CheckedChanged(object sender, EventArgs e)
@@ -48,8 +57,9 @@ namespace Project_Two
             bgColor = Color.Blue;
             BackColor = bgColor;
             // Draw the border again
-            MessageBox.Show("Gets here");
+            MessageBox.Show("Redrawing border");
             drawBorder();
+            updateForeground();
 
         }
 
@@ -58,10 +68,11 @@ namespace Project_Two
             // Change the background color of the options form to red
             bgColor = Color.Green;
             BackColor = bgColor;
-            MessageBox.Show("Gets here");
+            MessageBox.Show("Redrawing border");
+
             // Draw the border again
             drawBorder();
-
+            updateForeground();
         }
 
         private void optBackgroundDefault_CheckedChanged(object sender, EventArgs e)
@@ -69,10 +80,11 @@ namespace Project_Two
             // Change the background color of the options form to default color
             bgColor = Color.WhiteSmoke;
             BackColor = bgColor;
-            MessageBox.Show("Gets here");
+            MessageBox.Show("Redrawing border");
+
             // Draw the border again
             drawBorder();
-
+            updateForeground();
         }
 
         private void drawBorder ()

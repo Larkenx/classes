@@ -45,9 +45,11 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(20, 415);
+            this.btnOK.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOK.Location = new System.Drawing.Point(248, 285);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(78, 48);
+            this.btnOK.Size = new System.Drawing.Size(52, 31);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -56,10 +58,12 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(126, 415);
+            this.btnCancel.Location = new System.Drawing.Point(318, 285);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(78, 48);
+            this.btnCancel.Size = new System.Drawing.Size(52, 31);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -68,19 +72,21 @@
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(16, 40);
+            this.lblUserName.Location = new System.Drawing.Point(4, 20);
+            this.lblUserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(87, 20);
+            this.lblUserName.Size = new System.Drawing.Size(58, 13);
             this.lblUserName.TabIndex = 2;
             this.lblUserName.Text = "Username:";
             // 
             // txtUserNae
             // 
-            this.txtUserNae.Location = new System.Drawing.Point(109, 40);
+            this.txtUserNae.Location = new System.Drawing.Point(7, 40);
+            this.txtUserNae.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtUserNae.Multiline = true;
             this.txtUserNae.Name = "txtUserNae";
             this.txtUserNae.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtUserNae.Size = new System.Drawing.Size(434, 211);
+            this.txtUserNae.Size = new System.Drawing.Size(162, 276);
             this.txtUserNae.TabIndex = 3;
             this.txtUserNae.Text = resources.GetString("txtUserNae.Text");
             // 
@@ -92,9 +98,11 @@
             this.grpDefaultBackgroundColor.Controls.Add(this.optBackgroundGreen);
             this.grpDefaultBackgroundColor.Controls.Add(this.optBackgroundBlue);
             this.grpDefaultBackgroundColor.Controls.Add(this.optBackgroundRed);
-            this.grpDefaultBackgroundColor.Location = new System.Drawing.Point(269, 331);
+            this.grpDefaultBackgroundColor.Location = new System.Drawing.Point(187, 49);
+            this.grpDefaultBackgroundColor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpDefaultBackgroundColor.Name = "grpDefaultBackgroundColor";
-            this.grpDefaultBackgroundColor.Size = new System.Drawing.Size(274, 132);
+            this.grpDefaultBackgroundColor.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpDefaultBackgroundColor.Size = new System.Drawing.Size(183, 106);
             this.grpDefaultBackgroundColor.TabIndex = 4;
             this.grpDefaultBackgroundColor.TabStop = false;
             this.grpDefaultBackgroundColor.Text = "Options Default Background Color";
@@ -102,11 +110,13 @@
             // optBackgroundDefault
             // 
             this.optBackgroundDefault.AutoSize = true;
+            this.optBackgroundDefault.Cursor = System.Windows.Forms.Cursors.Hand;
             this.optBackgroundDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optBackgroundDefault.ForeColor = System.Drawing.Color.Black;
-            this.optBackgroundDefault.Location = new System.Drawing.Point(152, 66);
+            this.optBackgroundDefault.Location = new System.Drawing.Point(100, 64);
+            this.optBackgroundDefault.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.optBackgroundDefault.Name = "optBackgroundDefault";
-            this.optBackgroundDefault.Size = new System.Drawing.Size(93, 24);
+            this.optBackgroundDefault.Size = new System.Drawing.Size(66, 17);
             this.optBackgroundDefault.TabIndex = 8;
             this.optBackgroundDefault.TabStop = true;
             this.optBackgroundDefault.Text = "Default";
@@ -116,11 +126,13 @@
             // optBackgroundGreen
             // 
             this.optBackgroundGreen.AutoSize = true;
+            this.optBackgroundGreen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.optBackgroundGreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optBackgroundGreen.ForeColor = System.Drawing.Color.Green;
-            this.optBackgroundGreen.Location = new System.Drawing.Point(152, 35);
+            this.optBackgroundGreen.Location = new System.Drawing.Point(102, 33);
+            this.optBackgroundGreen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.optBackgroundGreen.Name = "optBackgroundGreen";
-            this.optBackgroundGreen.Size = new System.Drawing.Size(84, 24);
+            this.optBackgroundGreen.Size = new System.Drawing.Size(59, 17);
             this.optBackgroundGreen.TabIndex = 7;
             this.optBackgroundGreen.TabStop = true;
             this.optBackgroundGreen.Text = "Green";
@@ -130,11 +142,13 @@
             // optBackgroundBlue
             // 
             this.optBackgroundBlue.AutoSize = true;
+            this.optBackgroundBlue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.optBackgroundBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optBackgroundBlue.ForeColor = System.Drawing.Color.Blue;
-            this.optBackgroundBlue.Location = new System.Drawing.Point(50, 66);
+            this.optBackgroundBlue.Location = new System.Drawing.Point(25, 64);
+            this.optBackgroundBlue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.optBackgroundBlue.Name = "optBackgroundBlue";
-            this.optBackgroundBlue.Size = new System.Drawing.Size(70, 24);
+            this.optBackgroundBlue.Size = new System.Drawing.Size(50, 17);
             this.optBackgroundBlue.TabIndex = 6;
             this.optBackgroundBlue.TabStop = true;
             this.optBackgroundBlue.Text = "Blue";
@@ -144,11 +158,13 @@
             // optBackgroundRed
             // 
             this.optBackgroundRed.AutoSize = true;
+            this.optBackgroundRed.Cursor = System.Windows.Forms.Cursors.Hand;
             this.optBackgroundRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optBackgroundRed.ForeColor = System.Drawing.Color.Red;
-            this.optBackgroundRed.Location = new System.Drawing.Point(50, 35);
+            this.optBackgroundRed.Location = new System.Drawing.Point(27, 33);
+            this.optBackgroundRed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.optBackgroundRed.Name = "optBackgroundRed";
-            this.optBackgroundRed.Size = new System.Drawing.Size(67, 24);
+            this.optBackgroundRed.Size = new System.Drawing.Size(48, 17);
             this.optBackgroundRed.TabIndex = 5;
             this.optBackgroundRed.TabStop = true;
             this.optBackgroundRed.Text = "Red";
@@ -169,9 +185,10 @@
             "Yellow",
             "Purple",
             "Orange"});
-            this.cboBorderColors.Location = new System.Drawing.Point(269, 280);
+            this.cboBorderColors.Location = new System.Drawing.Point(186, 20);
+            this.cboBorderColors.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cboBorderColors.Name = "cboBorderColors";
-            this.cboBorderColors.Size = new System.Drawing.Size(274, 28);
+            this.cboBorderColors.Size = new System.Drawing.Size(184, 21);
             this.cboBorderColors.TabIndex = 0;
             this.cboBorderColors.Text = "Choose Your Border Color";
             this.cboBorderColors.SelectedIndexChanged += new System.EventHandler(this.cboBorderColors_SelectedIndexChanged);
@@ -179,11 +196,11 @@
             // formOptions
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(572, 503);
+            this.ClientSize = new System.Drawing.Size(381, 327);
             this.Controls.Add(this.cboBorderColors);
             this.Controls.Add(this.grpDefaultBackgroundColor);
             this.Controls.Add(this.txtUserNae);
@@ -191,6 +208,8 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "formOptions";

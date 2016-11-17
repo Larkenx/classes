@@ -43,7 +43,8 @@
             // 
             // btnShowNames
             // 
-            this.btnShowNames.Location = new System.Drawing.Point(288, 41);
+            this.btnShowNames.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnShowNames.Location = new System.Drawing.Point(289, 41);
             this.btnShowNames.Margin = new System.Windows.Forms.Padding(2);
             this.btnShowNames.Name = "btnShowNames";
             this.btnShowNames.Size = new System.Drawing.Size(152, 29);
@@ -58,14 +59,15 @@
             this.txtCollections.Margin = new System.Windows.Forms.Padding(2);
             this.txtCollections.Name = "txtCollections";
             this.txtCollections.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCollections.Size = new System.Drawing.Size(152, 26);
+            this.txtCollections.Size = new System.Drawing.Size(152, 20);
             this.txtCollections.TabIndex = 1;
             this.txtCollections.Text = "The Simpsons";
             this.txtCollections.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnHomer
             // 
-            this.btnHomer.Location = new System.Drawing.Point(31, 115);
+            this.btnHomer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnHomer.Location = new System.Drawing.Point(32, 115);
             this.btnHomer.Margin = new System.Windows.Forms.Padding(2);
             this.btnHomer.Name = "btnHomer";
             this.btnHomer.Size = new System.Drawing.Size(69, 27);
@@ -75,7 +77,8 @@
             // 
             // btnLisa
             // 
-            this.btnLisa.Location = new System.Drawing.Point(31, 211);
+            this.btnLisa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLisa.Location = new System.Drawing.Point(32, 211);
             this.btnLisa.Margin = new System.Windows.Forms.Padding(2);
             this.btnLisa.Name = "btnLisa";
             this.btnLisa.Size = new System.Drawing.Size(69, 27);
@@ -85,7 +88,8 @@
             // 
             // btnBart
             // 
-            this.btnBart.Location = new System.Drawing.Point(31, 179);
+            this.btnBart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBart.Location = new System.Drawing.Point(32, 179);
             this.btnBart.Margin = new System.Windows.Forms.Padding(2);
             this.btnBart.Name = "btnBart";
             this.btnBart.Size = new System.Drawing.Size(69, 27);
@@ -95,7 +99,8 @@
             // 
             // btnMarge
             // 
-            this.btnMarge.Location = new System.Drawing.Point(31, 147);
+            this.btnMarge.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMarge.Location = new System.Drawing.Point(32, 147);
             this.btnMarge.Margin = new System.Windows.Forms.Padding(2);
             this.btnMarge.Name = "btnMarge";
             this.btnMarge.Size = new System.Drawing.Size(69, 27);
@@ -105,7 +110,8 @@
             // 
             // btnMaggie
             // 
-            this.btnMaggie.Location = new System.Drawing.Point(31, 83);
+            this.btnMaggie.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMaggie.Location = new System.Drawing.Point(32, 83);
             this.btnMaggie.Margin = new System.Windows.Forms.Padding(2);
             this.btnMaggie.Name = "btnMaggie";
             this.btnMaggie.Size = new System.Drawing.Size(69, 27);
@@ -115,8 +121,9 @@
             // 
             // btnExit
             // 
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(365, 253);
+            this.btnExit.Location = new System.Drawing.Point(366, 253);
             this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 34);
