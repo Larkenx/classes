@@ -26,6 +26,9 @@ namespace PageRankProject
 
             // Create a new HTML Web object to get our HTML document
             HtmlWeb WebGet = new HtmlWeb();
+            
+            // We want to remove form tags because this can cause some issues
+            HtmlNode.ElementsFlags.Remove("form");
 
             // Create new HTML Document with the HtmlAgilityPack library
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
@@ -51,7 +54,7 @@ namespace PageRankProject
                     // If we have any issues parsing the html document, we can analyze them here
                     foreach (HtmlAgilityPack.HtmlParseError error in doc.ParseErrors)
                     {
-                        txt_DisplayLinks.AppendText(error.ToString() + '\n');
+                        txt_DisplayLinks.AppendText(error.Reason.ToString() + '\n');
                     }
 
                 }
