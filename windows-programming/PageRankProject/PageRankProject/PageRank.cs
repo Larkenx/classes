@@ -13,11 +13,12 @@ namespace PageRankProject
 {
     public partial class PageRank : Form
     {
+
+
         public PageRank()
         {
             InitializeComponent();
         }
-
 
         private void btn_Search_Click(object sender, EventArgs e)
         {

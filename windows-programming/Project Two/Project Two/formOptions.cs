@@ -45,7 +45,7 @@ namespace Project_Two
             // Change the background color of the options form to red
             bgColor = Color.Red;
             BackColor = bgColor;
-            MessageBox.Show("Redrawing border");
+            //MessageBox.Show("Redrawing border");
             // Draw the border again
             drawBorder();
             updateForeground();
@@ -60,7 +60,6 @@ namespace Project_Two
             MessageBox.Show("Redrawing border");
             drawBorder();
             updateForeground();
-
         }
 
         private void optBackgroundGreen_CheckedChanged(object sender, EventArgs e)
