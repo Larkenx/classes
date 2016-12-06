@@ -1,10 +1,10 @@
-//
-//  main.c
-//  bicolors
-//
-//  Created by Steven Myers on 12/5/16.
-//  Copyright © 2016 Steven Myers. All rights reserved.
-//
+/*
+  main.c
+  bicolors
+
+  Created by Steven Myers on 12/5/16.
+  Copyright © 2016 Steven Myers. All rights reserved.
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -70,17 +70,18 @@ int pop() {
 }
 
 void bicolor(int n, int graph[n][n], int colorMatrix[n]) {
-    // Now we are ready to traverse the graph and visit every node and color it
-    insert(0); // insert the first node
-    colorMatrix[0] = 1; // color the first node (1 and 0 denotes two colors)
+    int v;
+    /* Now we are ready to traverse the graph and visit every node and color it */
+    insert(0); /* insert the first node */
+    colorMatrix[0] = 1; /* color the first node (1 and 0 denotes two colors) */
     while (! isEmpty()) {
         int u = pop();
-        for (int v = 0; v < n; v++) { // go through all of its possible adjacent neighbors
+        for (v = 0; v < n; v++) { /* go through all of its possible adjacent neighbors */
             if (graph[u][v] == 1 && colorMatrix[v] == -1) {
-                colorMatrix[v] = 1 - colorMatrix[u]; // flip the color to be different than u since it's a neighbor
+                colorMatrix[v] = 1 - colorMatrix[u]; /* flip the color to be different than u since it's a neighbor */
                 insert(v);
-            } else if (graph[u][v] == 1 && colorMatrix[v] == colorMatrix[u]) { // if a neighbor is the same color
-                printf("(%d, %d) violates the bicolorable theorem.\n", u,v);
+            } else if (graph[u][v] == 1 && colorMatrix[v] == colorMatrix[u]) { /* if a neighbor is the same color */
+                /* printf("(%d, %d) violates the bicolorable theorem.\n", u,v); */
                 printf("NOT BICOLORABLE.\n");
                 return;
             }
@@ -90,23 +91,28 @@ void bicolor(int n, int graph[n][n], int colorMatrix[n]) {
 }
 
 int main(int argc, const char * argv[]) {
-    int nodes, edges;
+    int nodes, edges, i, j;
     while (scanf("%d", &nodes) == 1) {
         if (nodes == 0) break;
-        int graph[nodes][nodes]; // n * n adjacency matrix
-        int colorMatrix[nodes]; // n*n grid to mark what the colors are for each node
-        scanf("%d", &edges); // number of edges
-        for (int i = 0; i < edges; i++) {
+        int graph[nodes][nodes]; /* n * n adjacency matrix */
+        /* We will initialise all of the graph elements to be 0 */
+        for (i = 0; i < nodes; i++)
+            for (j = 0; j < nodes; j++)
+                graph[i][j] = 0;
+        
+        int colorMatrix[nodes]; /* n*n grid to mark what the colors are for each node */
+        scanf("%d", &edges); /* number of edges */
+        for (i = 0; i < edges; i++) {
             int u, v;
             scanf("%d %d", &u, &v);
-            // Mark that the edge exists in the adj matrix
+            /* Mark that the edge exists in the adj matrix */
             graph[u][v] = 1;
             graph[v][u] = 1;
         }
-        // We will denote uncolored (unvisited nodes) as -1
-        for (int i = 0; i < nodes; i++) colorMatrix[i] = -1;
+        /* We will denote uncolored (unvisited nodes) as -1 */
+        for (i = 0; i < nodes; i++) colorMatrix[i] = -1;
         bicolor(nodes, graph, colorMatrix);
-        // for each test case, we are going to clear out our queue.
+        /* for each test case, we are going to clear out our queue. */
         while (! isEmpty()) pop();
     }
     return 0;
