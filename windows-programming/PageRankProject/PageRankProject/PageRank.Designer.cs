@@ -38,27 +38,31 @@
             // 
             // txt_DisplayLinks
             // 
-            this.txt_DisplayLinks.Location = new System.Drawing.Point(13, 114);
+            this.txt_DisplayLinks.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_DisplayLinks.Location = new System.Drawing.Point(20, 175);
+            this.txt_DisplayLinks.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_DisplayLinks.Multiline = true;
             this.txt_DisplayLinks.Name = "txt_DisplayLinks";
             this.txt_DisplayLinks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_DisplayLinks.Size = new System.Drawing.Size(258, 266);
+            this.txt_DisplayLinks.Size = new System.Drawing.Size(754, 492);
             this.txt_DisplayLinks.TabIndex = 0;
             // 
             // txt_targetPage
             // 
-            this.txt_targetPage.Location = new System.Drawing.Point(13, 12);
+            this.txt_targetPage.Location = new System.Drawing.Point(173, 14);
+            this.txt_targetPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_targetPage.Name = "txt_targetPage";
             this.txt_targetPage.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txt_targetPage.Size = new System.Drawing.Size(258, 20);
+            this.txt_targetPage.Size = new System.Drawing.Size(385, 26);
             this.txt_targetPage.TabIndex = 1;
             this.txt_targetPage.Text = "Type in a URL and click search...";
             // 
             // btn_Search
             // 
-            this.btn_Search.Location = new System.Drawing.Point(53, 65);
+            this.btn_Search.Location = new System.Drawing.Point(233, 96);
+            this.btn_Search.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_Search.Name = "btn_Search";
-            this.btn_Search.Size = new System.Drawing.Size(164, 25);
+            this.btn_Search.Size = new System.Drawing.Size(246, 38);
             this.btn_Search.TabIndex = 2;
             this.btn_Search.Text = "Search";
             this.btn_Search.UseVisualStyleBackColor = true;
@@ -74,32 +78,35 @@
             "3",
             "4",
             "5"});
-            this.cbo_RecursionDepth.Location = new System.Drawing.Point(12, 38);
+            this.cbo_RecursionDepth.Location = new System.Drawing.Point(171, 54);
+            this.cbo_RecursionDepth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbo_RecursionDepth.Name = "cbo_RecursionDepth";
-            this.cbo_RecursionDepth.Size = new System.Drawing.Size(259, 21);
+            this.cbo_RecursionDepth.Size = new System.Drawing.Size(386, 28);
             this.cbo_RecursionDepth.TabIndex = 3;
             this.cbo_RecursionDepth.Text = "Select a Recursion Depth...";
             // 
             // picBox_ShowVisualization
             // 
             this.picBox_ShowVisualization.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.picBox_ShowVisualization.Location = new System.Drawing.Point(309, 12);
+            this.picBox_ShowVisualization.Location = new System.Drawing.Point(797, 14);
+            this.picBox_ShowVisualization.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.picBox_ShowVisualization.Name = "picBox_ShowVisualization";
-            this.picBox_ShowVisualization.Size = new System.Drawing.Size(369, 368);
+            this.picBox_ShowVisualization.Size = new System.Drawing.Size(554, 653);
             this.picBox_ShowVisualization.TabIndex = 4;
             this.picBox_ShowVisualization.TabStop = false;
             // 
             // PageRank
             // 
             this.AcceptButton = this.btn_Search;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 392);
+            this.ClientSize = new System.Drawing.Size(1364, 681);
             this.Controls.Add(this.picBox_ShowVisualization);
             this.Controls.Add(this.cbo_RecursionDepth);
             this.Controls.Add(this.btn_Search);
             this.Controls.Add(this.txt_targetPage);
             this.Controls.Add(this.txt_DisplayLinks);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PageRank";
             this.Text = "Page Rank Application";
             ((System.ComponentModel.ISupportInitialize)(this.picBox_ShowVisualization)).EndInit();
