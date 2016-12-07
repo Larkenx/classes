@@ -21,10 +21,22 @@ namespace PageRankProject
             InitializeComponent();
         }
 
+        private bool hasEdge(Graph graph, String src, String sink)
+        {
+            if (graph.FindNode(src).OutEdges.Count() > 0)
+            {
+                foreach (Edge e in graph.FindNode(src).OutEdges)
+                {
+                    if (e.Target.ToString() == sink) return true;
+                }
+            }
+            return false;
+        }
+
         private void addEdges(Graph graph, String src, List<String> edges, int recursionDepth)
         {
             // Add the src as an initial node
-            if (chkbox_stripPrefixes.Checked) src = src.Substring(src.IndexOf("//") + 2);
+            if (chkbox_stripPrefixes.Checked && src.Length > 5) src = src.Substring(src.IndexOf("//") + 2);
             graph.AddNode(src);
 
             // Our user has specified a "Recursion Depth" in the gui that corresponds to
@@ -37,7 +49,7 @@ namespace PageRankProject
             {
                 // Our users have the option of stripping the prefixes (https:// or http://) from the links,
                 // but if are going to recur on the edges, then we need to keep the initial prefix hanging around 
-                String sedge = (chkbox_stripPrefixes.Checked && edge.Contains("//")) ? edge.Substring(edge.IndexOf("//") + 2) : edge;
+                String sedge = (chkbox_stripPrefixes.Checked && edge.Contains("//") && edge.Length > 5) ? edge.Substring(edge.IndexOf("//") + 2) : edge;
                 // append the edge to the logs or display links textbox with a new line 
                 txt_DisplayLinks.AppendText(sedge + '\n');
                 // if the site hasn't already been added
@@ -47,11 +59,13 @@ namespace PageRankProject
                     graph.AddNode(sedge);
                 }
 
-                // Create an edge from the src to the new edge node
-                graph.AddEdge(src, sedge);
+                // Create an edge from the src to the new edge node, if one does not exist already
+                if (chkbox_AllowMultEdges.Checked || !hasEdge(graph, src, sedge))
+                {
+                    graph.AddEdge(src, "", sedge);
+                }
 
-                Uri test;
-                if (recursionDepth >= 1 && Uri.TryCreate(edge, UriKind.Absolute, out test)) {
+                if (recursionDepth >= 1) { //&& Uri.TryCreate(edge, UriKind.Absolute, out test)) {
                     addEdges(graph, edge, retrieveLinks(edge, chkbox_excludeLocal.Checked), recursionDepth - 1);
                 }
             }
@@ -81,6 +95,7 @@ namespace PageRankProject
                 // We need to iterate through every 'htmlnode' object in our document
                 // We create a collection of htmlnodes by using the .SelectNodes method on the documentNode,
                 // and passing this function an Xpath query.
+
                 // Create a collection of the nodes
                 HtmlNodeCollection query = doc.DocumentNode.SelectNodes("//a[@href]");
                 if (query != null)
@@ -105,9 +120,10 @@ namespace PageRankProject
                 }
             }
 
-            catch (System.UriFormatException evt)
+            catch (Exception evt)
             {
-                result.Add(evt.ToString() + '\n');
+                Console.Write(evt.ToString());
+                MessageBox.Show("You entered an invalid URI. Please enter a valid URI including 'http://'" );
             }
 
             return result;
@@ -171,6 +187,11 @@ namespace PageRankProject
         private void btn_Exit_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void chkbox_AllowMultEdges_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
