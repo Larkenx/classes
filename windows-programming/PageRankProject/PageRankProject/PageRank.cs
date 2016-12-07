@@ -21,7 +21,43 @@ namespace PageRankProject
             InitializeComponent();
         }
 
-        private List<String> retrieveLinks(String url)
+        private void addEdges(Graph graph, String src, List<String> edges, int recursionDepth)
+        {
+            // Add the src as an initial node
+            if (chkbox_stripPrefixes.Checked) src = src.Substring(src.IndexOf("//") + 2);
+            graph.AddNode(src);
+
+            // Our user has specified a "Recursion Depth" in the gui that corresponds to
+            // how many links after the src we should visit. This means we should
+            // also add the edges and nodes of the initial list of links we have,
+            // and continue until the recursion depth is zero.
+
+            // Iterate through all of the edges in our list
+            foreach (String edge in edges)
+            {
+                // Our users have the option of stripping the prefixes (https:// or http://) from the links,
+                // but if are going to recur on the edges, then we need to keep the initial prefix hanging around 
+                String sedge = (chkbox_stripPrefixes.Checked && edge.Contains("//")) ? edge.Substring(edge.IndexOf("//") + 2) : edge;
+                // append the edge to the logs or display links textbox with a new line 
+                txt_DisplayLinks.AppendText(sedge + '\n');
+                // if the site hasn't already been added
+                if (graph.FindNode(sedge) == null)
+                {
+                    // Add the edge as a node
+                    graph.AddNode(sedge);
+                }
+
+                // Create an edge from the src to the new edge node
+                graph.AddEdge(src, sedge);
+
+                Uri test;
+                if (recursionDepth >= 1 && Uri.TryCreate(edge, UriKind.Absolute, out test)) {
+                    addEdges(graph, edge, retrieveLinks(edge, chkbox_excludeLocal.Checked), recursionDepth - 1);
+                }
+            }
+        }
+
+        private List<String> retrieveLinks(String url, bool excludeLocal)
         {
             // Create a new HTML Web object to get our HTML document
             HtmlWeb WebGet = new HtmlWeb();
@@ -47,13 +83,25 @@ namespace PageRankProject
                 // and passing this function an Xpath query.
                 // Create a collection of the nodes
                 HtmlNodeCollection query = doc.DocumentNode.SelectNodes("//a[@href]");
-
-                foreach (HtmlNode link in query)
+                if (query != null)
                 {
-                    // Now we just need to grab the attribute from the htmlnode
-                    HtmlAttribute att = link.Attributes["href"];
-                    // and add it to our list of links
-                    result.Add(att.Value);
+                    foreach (HtmlNode link in query)
+                    {
+                        // Now we just need to grab the attribute from the htmlnode
+                        HtmlAttribute att = link.Attributes["href"];
+                        // and add it to our list of links..but,
+                        // we need to make sure that we are searching all links, or
+                        // if we are excluding local links (e.g files on the same website)
+                        if (excludeLocal && (att.Value.Length < 4 || att.Value.StartsWith("/") || att.Value.StartsWith("#") || att.Value.StartsWith(url)))
+                        {
+                            // pass
+                        }
+                        else
+                        {
+                            result.Add(att.Value);
+                        }
+
+                    }
                 }
             }
 
@@ -70,46 +118,47 @@ namespace PageRankProject
             // Our user has just conducted a new search, so we need to clear the previous text display
             txt_DisplayLinks.Text = "";
 
-            // We also need to dispose of the last graph they drew, if they drew one
-            // We can only have a single control in our graph tab, so if there's one there
-            // We know it's the last graph
-            if (GraphTab.Controls.Count > 0)
+            /* We also need to dispose of the last graph they drew.
+             * Even though it's only possible for there to be one control
+             * in our GraphTab.Controls, we will iterate through all of them
+             * to be sure. */
+            foreach (Control item in GraphTab.Controls)
             {
                 // just to be certain, let's check that it's a graph viewer
-                if (GraphTab.Controls[0].GetType() == typeof(GViewer))
+                if (item.GetType() == typeof(GViewer))
                 {
                     // if it is, let's dispose it to save memory
-                    ((GViewer) GraphTab.Controls[0]).Dispose();
+                    ((GViewer) item).Dispose();
                 }
-
             }
+
             // finally, clear out all the controls after they've been disposed
             GraphTab.Controls.Clear();
 
             // Using the link they provided, search for the results.
-            List<String> results = retrieveLinks(txt_targetPage.Text);
+            List<String> results = retrieveLinks(txt_targetPage.Text, chkbox_excludeLocal.Checked);
 
-            // We need to do two things with our results we got back. We need to add
-            // each edge to the textbox showing all of the links dumped into the textbox.
-            // but we also need to form a graph, with each of these links we got back as
-            // edges from the root node (searched node).
-
-            Graph graph = new Graph("graph");
+            // Construct a new Graph object to store nodes and edges
+            Graph graph = new Graph("Graph of Webpage Links");
+            // We do want to have a directed graph since links go in one direction
             graph.Directed = true;
+            // We will use the MDS layout algorithm for nodes/edges because it looks nice
             graph.LayoutAlgorithmSettings = new Microsoft.Msagl.Layout.MDS.MdsLayoutSettings();
-            graph.AddNode(txt_targetPage.Text);
+            // Now we are ready to pass off the list of links we built up earlier to this helper function,
+            // which will add all of the links as nodes to the graph, and form edges from the links to the src
+            // link (the entered in target page).
 
-            // Put the results in the text box for the user to see
-            foreach (String result in results)
-            {
-                txt_DisplayLinks.AppendText(result + '\n');
-                graph.AddNode(result);
-                graph.AddEdge(txt_targetPage.Text, result);
-            }
-
+            int recursionDepth = 0;
+            Int32.TryParse(cbo_RecursionDepth.Text, out recursionDepth);
+            addEdges(graph, txt_targetPage.Text, results, recursionDepth);
+           
+            // Create a Graph Viewer object 
             GViewer viewer = new GViewer();
+            // Attach our graph we've created to the viewer
             viewer.Graph = graph;
+            // Set the viewer dockstyle to be 'fill'
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            // Add the viewer to our GraphTab's controls.
             GraphTab.Controls.Add(viewer);
         }
 
@@ -117,6 +166,11 @@ namespace PageRankProject
         {
             // Clear the initial text
             txt_targetPage.Text = "";
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -35,28 +35,31 @@
             this.TabsContainer = new System.Windows.Forms.TabControl();
             this.LogsTab = new System.Windows.Forms.TabPage();
             this.GraphTab = new System.Windows.Forms.TabPage();
+            this.GraphTreeView = new System.Windows.Forms.TreeView();
+            this.chkbox_stripPrefixes = new System.Windows.Forms.CheckBox();
+            this.btn_Exit = new System.Windows.Forms.Button();
+            this.chkbox_excludeLocal = new System.Windows.Forms.CheckBox();
             this.TabsContainer.SuspendLayout();
             this.LogsTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_DisplayLinks
             // 
-            this.txt_DisplayLinks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_DisplayLinks.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_DisplayLinks.Location = new System.Drawing.Point(3, 3);
+            this.txt_DisplayLinks.Location = new System.Drawing.Point(6, 6);
             this.txt_DisplayLinks.Multiline = true;
             this.txt_DisplayLinks.Name = "txt_DisplayLinks";
             this.txt_DisplayLinks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_DisplayLinks.Size = new System.Drawing.Size(1031, 398);
+            this.txt_DisplayLinks.Size = new System.Drawing.Size(508, 392);
             this.txt_DisplayLinks.TabIndex = 0;
             // 
             // txt_targetPage
             // 
             this.txt_targetPage.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_targetPage.Location = new System.Drawing.Point(423, 12);
+            this.txt_targetPage.Location = new System.Drawing.Point(11, 3);
             this.txt_targetPage.Name = "txt_targetPage";
             this.txt_targetPage.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txt_targetPage.Size = new System.Drawing.Size(258, 20);
+            this.txt_targetPage.Size = new System.Drawing.Size(294, 20);
             this.txt_targetPage.TabIndex = 1;
             this.txt_targetPage.Text = "Type in a URL and click search...";
             this.txt_targetPage.Click += new System.EventHandler(this.txt_targetPage_Click);
@@ -64,9 +67,9 @@
             // btn_Search
             // 
             this.btn_Search.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_Search.Location = new System.Drawing.Point(490, 65);
+            this.btn_Search.Location = new System.Drawing.Point(11, 29);
             this.btn_Search.Name = "btn_Search";
-            this.btn_Search.Size = new System.Drawing.Size(143, 25);
+            this.btn_Search.Size = new System.Drawing.Size(163, 47);
             this.btn_Search.TabIndex = 2;
             this.btn_Search.Text = "Search";
             this.btn_Search.UseVisualStyleBackColor = true;
@@ -83,9 +86,9 @@
             "3",
             "4",
             "5"});
-            this.cbo_RecursionDepth.Location = new System.Drawing.Point(422, 38);
+            this.cbo_RecursionDepth.Location = new System.Drawing.Point(311, 3);
             this.cbo_RecursionDepth.Name = "cbo_RecursionDepth";
-            this.cbo_RecursionDepth.Size = new System.Drawing.Size(259, 21);
+            this.cbo_RecursionDepth.Size = new System.Drawing.Size(156, 21);
             this.cbo_RecursionDepth.TabIndex = 3;
             this.cbo_RecursionDepth.Text = "Select a Recursion Depth...";
             // 
@@ -96,19 +99,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabsContainer.Controls.Add(this.LogsTab);
             this.TabsContainer.Controls.Add(this.GraphTab);
-            this.TabsContainer.Location = new System.Drawing.Point(12, 93);
+            this.TabsContainer.Location = new System.Drawing.Point(11, 82);
             this.TabsContainer.Name = "TabsContainer";
             this.TabsContainer.SelectedIndex = 0;
-            this.TabsContainer.Size = new System.Drawing.Size(1045, 430);
+            this.TabsContainer.Size = new System.Drawing.Size(1046, 441);
             this.TabsContainer.TabIndex = 4;
             // 
             // LogsTab
             // 
+            this.LogsTab.Controls.Add(this.GraphTreeView);
             this.LogsTab.Controls.Add(this.txt_DisplayLinks);
             this.LogsTab.Location = new System.Drawing.Point(4, 22);
             this.LogsTab.Name = "LogsTab";
             this.LogsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.LogsTab.Size = new System.Drawing.Size(1037, 404);
+            this.LogsTab.Size = new System.Drawing.Size(1038, 415);
             this.LogsTab.TabIndex = 0;
             this.LogsTab.Text = "Logs";
             this.LogsTab.UseVisualStyleBackColor = true;
@@ -123,12 +127,53 @@
             this.GraphTab.Text = "Graph View";
             this.GraphTab.UseVisualStyleBackColor = true;
             // 
+            // GraphTreeView
+            // 
+            this.GraphTreeView.Location = new System.Drawing.Point(520, 6);
+            this.GraphTreeView.Name = "GraphTreeView";
+            this.GraphTreeView.Size = new System.Drawing.Size(511, 392);
+            this.GraphTreeView.TabIndex = 1;
+            // 
+            // chkbox_stripPrefixes
+            // 
+            this.chkbox_stripPrefixes.AutoSize = true;
+            this.chkbox_stripPrefixes.Location = new System.Drawing.Point(311, 53);
+            this.chkbox_stripPrefixes.Name = "chkbox_stripPrefixes";
+            this.chkbox_stripPrefixes.Size = new System.Drawing.Size(105, 17);
+            this.chkbox_stripPrefixes.TabIndex = 5;
+            this.chkbox_stripPrefixes.Text = "Strip link prefixes";
+            this.chkbox_stripPrefixes.UseVisualStyleBackColor = true;
+            // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_Exit.Location = new System.Drawing.Point(894, 12);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(163, 47);
+            this.btn_Exit.TabIndex = 6;
+            this.btn_Exit.Text = "Exit";
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            // 
+            // chkbox_excludeLocal
+            // 
+            this.chkbox_excludeLocal.AutoSize = true;
+            this.chkbox_excludeLocal.Location = new System.Drawing.Point(311, 30);
+            this.chkbox_excludeLocal.Name = "chkbox_excludeLocal";
+            this.chkbox_excludeLocal.Size = new System.Drawing.Size(144, 17);
+            this.chkbox_excludeLocal.TabIndex = 7;
+            this.chkbox_excludeLocal.Text = "Exclude local web pages";
+            this.chkbox_excludeLocal.UseVisualStyleBackColor = true;
+            // 
             // PageRank
             // 
             this.AcceptButton = this.btn_Search;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1069, 535);
+            this.Controls.Add(this.chkbox_excludeLocal);
+            this.Controls.Add(this.btn_Exit);
+            this.Controls.Add(this.chkbox_stripPrefixes);
             this.Controls.Add(this.TabsContainer);
             this.Controls.Add(this.cbo_RecursionDepth);
             this.Controls.Add(this.btn_Search);
@@ -152,6 +197,10 @@
         private System.Windows.Forms.TabControl TabsContainer;
         private System.Windows.Forms.TabPage LogsTab;
         private System.Windows.Forms.TabPage GraphTab;
+        private System.Windows.Forms.TreeView GraphTreeView;
+        private System.Windows.Forms.CheckBox chkbox_stripPrefixes;
+        private System.Windows.Forms.Button btn_Exit;
+        private System.Windows.Forms.CheckBox chkbox_excludeLocal;
     }
 }
 
