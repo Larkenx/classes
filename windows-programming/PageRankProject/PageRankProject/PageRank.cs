@@ -36,7 +36,7 @@ namespace PageRankProject
         private void addEdges(Graph graph, String src, List<String> edges, int recursionDepth)
         {
             // Add the src as an initial node
-            if (chkbox_stripPrefixes.Checked && src.Length > 5) src = src.Substring(src.IndexOf("//") + 2);
+            if (chkbox_stripPrefixes.Checked && src.Length > 5) src = src.Substring(src.IndexOf("://") + 2);
             graph.AddNode(src);
 
             // Our user has specified a "Recursion Depth" in the gui that corresponds to
@@ -171,11 +171,11 @@ namespace PageRankProject
             // Create a Graph Viewer object 
             GViewer viewer = new GViewer();
             // Attach our graph we've created to the viewer
-            viewer.Graph = graph;
+           // viewer.Graph = graph;
             // Set the viewer dockstyle to be 'fill'
-            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+           // viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             // Add the viewer to our GraphTab's controls.
-            GraphTab.Controls.Add(viewer);
+           // GraphTab.Controls.Add(viewer);
         }
 
         private void txt_targetPage_Click(object sender, EventArgs e)
