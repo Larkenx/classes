@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="chkbox_excludeLocal.Text" xml:space="preserve">
+    <value>Exclude local or relative web pages from the search. This will speed up the graph creation significantly. Please note that enabling suffix stripping will do a lot of what this parameter does as well, except this actively removes relative paths.
+</value>
+  </data>
+  <data name="chkbox_stripSuffixes.Text" xml:space="preserve">
+    <value>Enable suffix stripping. This will make it so that the application will only include domain hostnames in the graph, and only visit the domain hostnames when visiting neighbors. For example, "larkenx.net/index.html" becomes "larkenx.net"</value>
+  </data>
+  <data name="lbl_targetPage.Text" xml:space="preserve">
+    <value>Enter in a URL in the text box below. The 'search' button will scrape the target web page for hyperlinks and generate a graphical visualization of the ingoing and outgoing connections of the page you specify.</value>
+  </data>
 </root>
