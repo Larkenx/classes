@@ -46,7 +46,7 @@ namespace PageRankProject
 
             // Generate random color to use as nodes and edges for this src to aesthetically distinguish them from others
             Random rand = new Random();
-            Microsoft.Msagl.Drawing.Color randomColor = new Microsoft.Msagl.Drawing.Color((byte) rand.Next(0, 255), (byte) rand.Next(0, 255), (byte) rand.Next(0, 255));
+            Microsoft.Msagl.Drawing.Color randomColor = new Microsoft.Msagl.Drawing.Color((byte) rand.Next(80, 255), (byte) rand.Next(80, 255), (byte) rand.Next(80, 255));
 
             // Strip http(s):// prefix if user chose to
             if (chkbox_stripPrefixes.Checked && src.Length > 5)
@@ -104,10 +104,11 @@ namespace PageRankProject
                 // and if the edge is a valid URI
                 if (recursionDepth >= 1 && edge.StartsWith("http")) {
                     
-                    if (chkbox_stripSuffixes.Checked && sedge.Contains(src))
+                    if (chkbox_stripSuffixes.Checked && src.Contains(sedge))
                     {
                         // we don't want to add any nodes that contain the same domain name since we don't care
                         // about its subpages (local pages)
+                        Console.WriteLine("Successfully blocked same domain name node");
                     }
                     else
                     {
@@ -275,9 +276,5 @@ namespace PageRankProject
             Close();
         }
 
-        private void lbl_Logs_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

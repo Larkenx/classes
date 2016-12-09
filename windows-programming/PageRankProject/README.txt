@@ -72,3 +72,21 @@ search that page. Likewise, a lot of the user controls enable the user to cut do
 
 If a user disables multiple edges, it's a quick way to make the application hugely more efficient. Drawing hundreds of duplicate edges (multiple links leading to the same webpage)
 gets real expensive, real fast - especially with big sites. This is why it's disabled by default.
+
+# Design
+
+As for the colors and the layout of the application, I changed the background to a slightly different color than the default. I think that
+changing the background color of main windows is not a hallmark of good design choices. In fact, I think that it can easily make a good
+application look unprofessional and that it why I have chosen to stay with a more-or-less default background color.
+
+I manually altered the graph nodes and edges to be random colored to easily distinguish different nodes and edges from other recursion depths.
+Finally, I made sure to lay my settings underneath my search bar as if it were some kind of search engine.
+
+# Frameworks and Sources
+
+I used two frameworks in this project. I have listed their source pages and links to their licenses as proof
+of the legality to use this framework.
+
+Microsoft Automatic Graph Layout (source: https://github.com/Microsoft/automatic-graph-layout) (license: https://github.com/Microsoft/automatic-graph-layout/blob/master/LICENSE)
+
+HTMLAgilityPack (source: https://htmlagilitypack.codeplex.com/) (license: https://htmlagilitypack.codeplex.com/license)
