@@ -1,0 +1,167 @@
+% LaTeX Article Template - customizing header and footer
+\documentclass{article}
+
+\newtheorem{thm}{Theorem}
+
+% Set left margin - The default is 1 inch, so the following
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the header
+\setlength{\headheight}{0.3in}
+
+% Set vertical distance between the header and the text
+\setlength{\headsep}{0.2in}
+
+% Set height of the text
+\setlength{\textheight}{9in}
+
+% Set vertical distance between the text and the
+% bottom of footer
+\setlength{\footskip}{0.1in}
+
+% Set the beginning of a LaTeX document
+\usepackage{multirow}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\graphicspath{%
+    {converted_graphics/}% inserted by PCTeX
+    {/}% inserted by PCTeX
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}\title{Homework $1$\\ Computer Science \\ Spring 2017\\ B351}         % Enter your title between curly braces
+\author{Steven Myers}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+
+% Redefine "plain" pagestyle
+\makeatother     % `@' is restored as a "non-letter" character
+
+
+% Set to use the "plain" pagestyle
+\pagestyle{plain}
+All the work herein is mine.
+
+\section*{Answers}
+
+\begin{enumerate}
+    \item % problem one
+    \begin{enumerate}
+        \item % a
+        The state space is as large as there are valid "moves" that the robot can make. We can consider every location within the maze as a "state." We can make some assummptions, such as the maze consists of only rectangular corridors and that the robot moves roughly from square to square within this maze. We could then take every tile in the maze that is not blocked (a wall), and sum the number of possible moves on unblocked tiles that would not result the robot moving into a blocked tile. If necessary, we must also dictate what orientation, and moreover how much distance can be covered from each state as well.
+        \item % b
+        If we only move until we reach intersections of corridors, it means that we can join long stretches of  tiles in which there are no intersections and treat it as one state, since we are no longer interested in states that do not break a cardinal direction (e.g something that only travels north).
+        \item % c
+        This does little to change the overall problem of exiting the maze with our robot. The orientation of the robot is identical to the last action taken. So, if the last time we had a transition from one state to another, our action was to move east, then the Robot's orientation would also be east.
+        \item % d
+        We made the following simplifications:
+        \begin{itemize}
+            \item
+            A robot cannot stop moving until it reaches an intersection.
+            \item
+            We do not know the size of maze or whether or not the robot can successfully navigate itself out.
+            \item
+            We do not know the shape of the maze, but assume it consists of rectangular walls.
+        \end{itemize}
+
+    \end{enumerate}
+    \item % problem two
+    A problem in which an AI is not well suited for could be any of the following:
+    \begin{itemize}
+        \item
+        Determining the best tasting wine in a wine-tasting contest
+        \item
+        Picking out the prettiest dress in a wardrobe
+        \item
+        Determining whose life is more valuable than another (Will Smith's family in \textit{iRobot})
+    \end{itemize}
+    \item % problem three
+        \begin{enumerate}
+            \item
+            \lstset{language=python}
+            Here is a representation of the floor in a graph \textit{G = \{V, E\}}:
+            \begin{lstlisting}[frame=single]
+G = {V, E}
+V : {U, A, B, H, C, I, J, G, F, D, K, E, L}
+E : {(U, C), (U, L), (A, B), (B, H), (B, J), (H, G), (C, I), (J, G), (G, K),
+    (F, E), (F, D), (D, K), (D, L)}
+            \end{lstlisting}
+            \item
+            Here is an adjacency list representation of the floor:
+            \begin{lstlisting}
+U => {C, L}
+A => {B}
+B => {A, H, J}
+H => {B, G}
+C => {U, I}
+I => {C}
+J => {B, G}
+G => {H, J, K}
+F => {E, D}
+D => {F, K, L}
+K => {G, D}
+E => {F}
+L => {U, D}
+            \end{lstlisting}
+            \item
+            Here is one possible sequence of a DFS search on the floor:
+            \\\textit{U, C, I, L, D, F, E, K, G, J, B, A, H}
+            \item
+            Since we know that it takes 4 minutes to scan every room, we can multiply
+            the number of minutes times the number of vertices to find the total amount of time
+            spent scanning as a constant value. So, it will take 48 minutes to scan the entire
+            floor since there are 12 rooms. Since there is only one path to travel from U to I, we can optimize
+            the path by starting with our drone in room I. This also guarantees that we don't have to make a roundtrip between C \& L. Thus, starting from I, here is the cheapest path and its cost:
+            \\\textit{U, C, I, L, D, F, E, K, G, J, B, A, H}
+
+
+        \end{enumerate}
+    \item % problem four
+\end{enumerate}
+% \begin{enumerate}
+% \item $f(x) = x^2$ \begin{verbatim}$f(x) = x^2$\end{verbatim}
+% \item $g(x,y) = \frac{x - 1}{y + 2}$
+% \end{enumerate}
+%
+% To bold, \begin{verbatim} \textbf{robot} \end{verbatim} \textbf{robot}
+% To Italicize, \begin{verbatim} \textit{robot} \end{verbatim} \textit{robot}
+
+\end{document}
