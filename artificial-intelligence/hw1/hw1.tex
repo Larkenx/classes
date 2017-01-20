@@ -119,27 +119,29 @@ All the work herein is mine.
             \lstset{language=python}
             Here is a representation of the floor in a graph \textit{G = \{V, E\}}:
             \begin{lstlisting}[frame=single]
-G = {V, E}
-V : {U, A, B, H, C, I, J, G, F, D, K, E, L}
-E : {(U, C), (U, L), (A, B), (B, H), (B, J), (H, G), (C, I), (J, G), (G, K),
-    (F, E), (F, D), (D, K), (D, L)}
+G = [V, E]
+V = [U, A, B, H, C, I, J, G, F, D, K, E, L]
+E = [(U, C), (U, L), (A, B), (B, H), (B, J), (H, G), (C, I), (J, G), (G, K),
+    (F, E), (F, D), (D, K), (D, L)]
             \end{lstlisting}
             \item
             Here is an adjacency list representation of the floor:
             \begin{lstlisting}
-U => {C, L}
-A => {B}
-B => {A, H, J}
-H => {B, G}
-C => {U, I}
-I => {C}
-J => {B, G}
-G => {H, J, K}
-F => {E, D}
-D => {F, K, L}
-K => {G, D}
-E => {F}
-L => {U, D}
+adj_list = {
+    "U" : ["C", "L"],
+    "A" : ["B"],
+    "B" : ["A", "H", "J"],
+    "H" : ["B", "G"],
+    "C" : ["U", "I"],
+    "I" : ["C"],
+    "J" : ["B", "G"],
+    "G" : ["H", "J", "K"],
+    "F" : ["E", "D"],
+    "D" : ["F", "K", "L"],
+    "K" : ["G", "D"],
+    "E" : ["F"],
+    "L" : ["U", "D"],
+}
             \end{lstlisting}
             \item
             Here is one possible sequence of a DFS search on the floor:
@@ -148,13 +150,41 @@ L => {U, D}
             Since we know that it takes 4 minutes to scan every room, we can multiply
             the number of minutes times the number of vertices to find the total amount of time
             spent scanning as a constant value. So, it will take 48 minutes to scan the entire
-            floor since there are 12 rooms. Since there is only one path to travel from U to I, we can optimize
-            the path by starting with our drone in room I. This also guarantees that we don't have to make a roundtrip between C \& L. Thus, starting from I, here is the cheapest path and its cost:
-            \\\textit{U, C, I, L, D, F, E, K, G, J, B, A, H}
-
-
+            floor since there are 12 rooms. Since there is only one path to travel from \textbf{U} to \textbf{I}, we can optimize
+            the path by starting with our drone in room I. This also guarantees that we don't have to make a roundtrip between \textbf{C} \& \textbf{L}. We will have to consider that our drone is going to have to revisit some rooms to gain access to other parts of the floor. Starting from \textbf{I}, here is the cheapest path and its cost:
+            \\\\\textit{\textbf{Path: \{I, C, L, D, F, E, F, D, K, G, J, B, A, B, H\}}}
+            \\\textit{\textbf{Cost Breakdown:}} 48 (scanning) + 7 (trip from C to L) + 26 (all other trips) = 81 minutes.
+            \\\\ To annotate this graph, I would add edges with numbers between each room indicating the cost of traveling from one room to another. Additionally, I would make it clear in a key off to the side that scanning each room takes 2 minutes.
+            \item
+            At least two batteries are needed for the drone to scan the entire floor if the drone starts in room \textbf{I}.
+            \item
+            My python file is "p1.py". My DFS function returned the following path for a DFS search. It is quite similar to the one mentioned in part (c) above, but the python program visited \textbf{H} first instead of \textbf{J}.:
+            \begin{lstlisting}
+['U', 'C', 'I', 'L', 'D', 'F', 'E', 'K', 'G', 'H', 'B', 'A', 'J']
+            \end{lstlisting}
         \end{enumerate}
     \item % problem four
+    \begin{enumerate}
+        \item I played only rock for my games against the computer.
+        The expectation of a human winning is 38\%. I am not surprised at this,
+        since there is a one in three (33\%) chance of winning, losing, or tying.
+        The computer's expectation is 30\%, which is also roughly 33\%. My results are listed below:
+        \begin{lstlisting}
+cw% = 60, hm% = 30, ties% = 10
+cw% = 10, hm% = 60, ties% = 30
+cw% = 40, hm% = 30, ties% = 30
+cw% = 20, hm% = 40, ties% = 40
+cw% = 20, hm% = 30, ties% = 50
+        \end{lstlisting}
+        \item
+        The python random function selects a number based on the Mersenne Twister pseudo-random number generator.
+        The computer's choice of numbers have no effect on the previous choice. For my selection against the computer,
+        my previous choice did not necessarily alter my choice; but in real-life against a person, it would have.
+        \item
+        My version of Robby is in p2.py. I managed to make it such that Robby wins every game by setting the seed of the random generator.
+
+    \end{enumerate}
+
 \end{enumerate}
 % \begin{enumerate}
 % \item $f(x) = x^2$ \begin{verbatim}$f(x) = x^2$\end{verbatim}
