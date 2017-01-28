@@ -26,7 +26,7 @@
 
 % Set vertical distance between the text and the
 % bottom of footer
-\setlength{\footskip}{0.1in}
+%\setlength{\footskip}{0.15in}
 
 % Set the beginning of a LaTeX document
 \usepackage{multirow}
@@ -80,14 +80,13 @@ In the first iterations of the chaos game, it's likely that the generated points
     \includegraphics[width=\linewidth, height=.2\textheight]{combined_image}
     \caption{Images created by the Chaos Game for 50, 250, and 1000 iterations respectively.}
 \end{figure}
-\paragraph{}
-Looking at Figure 1, we can immediately see that there are well-defined spaces where no points fall. When we iterate 250 times or more, we begin to see these spaces fully develop as upside down, circumscribed triangles. If we try replay the chaos game by hand and select new initial starting points, we will find that no initial starting point can produce subsequent points within these zones where no points fall, no matter the initial starting point we choose \textit{except} if we choose an initial starting point that is directly within one of the upsided down triangles where no points fall. However, even when we purposefully select an initial starting point in zones where no points fall, we will still eventually get the same image as other initial starting points. Moreover, we will not produce points that are \textit{closer} to the center than our initial point. An example of this phenonmenon is found in Figure 2.
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\linewidth, height=.25\textheight]{centered_start}
     \caption{Initial starting point in the center of the original triangle. Centered points have been enlarged for clarity and colored arrows show the iterations of the chaos game.}
 \end{figure}
-
+\paragraph{}
+Looking at Figure 1, we can immediately see that there are well-defined spaces where no points fall. When we iterate 250 times or more, we begin to see these spaces fully develop as upside down, circumscribed triangles. If we try replay the chaos game by hand and select new initial starting points, we will find that no initial starting point can produce subsequent points within these zones where no points fall, no matter the initial starting point we choose \textit{except} if we choose an initial starting point that is directly within one of the upside down triangles where no points fall. However, even when we purposefully select an initial starting point in zones where no points fall, we will still eventually get the same image as other initial starting points. Moreover, we will not produce points that are \textit{closer} to the center than our initial point. An example of this phenonmenon is found in Figure 2.
 \paragraph{}
  So, by iteratively working the chaos game out, we see that a common pattern emerges that is \textit{not} random. We have consistent areas in which no points fall, and we eventually get the same resulting image regardless of our initial starting point.
 \section*{The Sierpenski Triangle}
