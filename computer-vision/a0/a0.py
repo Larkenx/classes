@@ -15,15 +15,16 @@ original = array(img)
 cropped = array(img.crop((100, 100, 400, 400)))
 cropped_resized = array(cropped_img)
 
-print array(img)[20]
+# print array(img)[20]
 
-# def grayscale(arr):
-#     result = full_like(arr, ["float32"])
+def grayscale(arr):
+    result = [arr[i,j].mean() for i in range(0, arr.shape[0]) for j in range(0, arr.shape[1])]
+    return result
 
-# grayscale(original)
+grayscale(original)
 
 
-# print grayscale(original)
+print grayscale(original)
 
 
 # Plot the image
