@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1485564619 "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.tex" "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.pdf" "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game" 1485564620
+["pdflatex"] 1485565503 "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.tex" "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.pdf" "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game" 1485565504
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1233951854 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -61,16 +61,16 @@
   "C:/Users/Artorias/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/caption3.sty" 1463943104 64866 1ea74c5f2d1685881497f021b8f186b2 ""
   "C:/Users/Artorias/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/subcaption.sty" 1463943104 5038 413302044f9700cf65465d590c2f4ad1 ""
   "C:/Users/Artorias/AppData/Roaming/MiKTeX/2.9/tex/latex/preprint/fullpage.sty" 1369148873 2867 54369642ea975a2058d872ad1450145a ""
-  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.aux" 1485564620 896 42d91a08a01fd255edccd411b90e2179 ""
-  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.tex" 1485564614 7640 ace324756c3273ffb7a33a8d0c2253c6 ""
+  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.aux" 1485565504 896 42d91a08a01fd255edccd411b90e2179 ""
+  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.tex" 1485565500 7754 b1f6992937becf57aff70ac3b165c281 ""
   "centered_start.png" 1485563939 226226 0d6b593f749019446028ddd535d8dafb ""
-  "chaos_game.aux" 1485564620 896 42d91a08a01fd255edccd411b90e2179 ""
-  "chaos_game.tex" 1485564614 7640 ace324756c3273ffb7a33a8d0c2253c6 ""
+  "chaos_game.aux" 1485565504 896 42d91a08a01fd255edccd411b90e2179 ""
+  "chaos_game.tex" 1485565500 7754 b1f6992937becf57aff70ac3b165c281 ""
   "combined_image.png" 1485563939 125973 1eb2f9da0efb1e5b7d071293db0bceba ""
   "ideal.png" 1485563939 230033 e39feaa57c8717fc4f560febb72cc66a ""
   (generated)
-  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.pdf"
-  "chaos_game.aux"
   "chaos_game.log"
-  "chaos_game.pdf"
+  "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.pdf"
   "C:\Users\Artorias\Documents\GitHub\classes\math-stuff\chaos-game\chaos_game.log"
+  "chaos_game.pdf"
+  "chaos_game.aux"
