@@ -56,8 +56,7 @@ def grayscale(arr):
 
 # My correlate function
 def mcorrelate(img, filter):
-    arr = array(img)
-    return signal.correlate2d(arr, filter, boundary='fill', mode='valid')
+    return signal.correlate2d(img, filter, boundary='fill', mode='valid')
 
 def convolute(img, filter):
     new_filter = filter[::-1]
@@ -75,15 +74,13 @@ impulsef = [[0,0,0], [0,10,0], [0,0,0]]
 # Gaussian Filter
 gaussianf = [[1, 2, 1], [2, 4, 2], [1, 2, 1]]
 
-
-"""
 # Drawing the blurred images side by side with original
 fig = figure()
 fig.add_subplot(1, 2, 1)
-imshow(eye_img.convert('L'), cmap=matplotlib.cm.Greys_r)
+imshow(img.convert('L'), cmap=matplotlib.cm.Greys_r)
 
 fig.add_subplot(1, 2, 2)
-blurred_img = convolute(eye_img.convert('L'), af2)
+blurred_img = convolute(img.convert('L'), af1)
 imshow(blurred_img, cmap=matplotlib.cm.Greys_r)
-"""
+
 show()
