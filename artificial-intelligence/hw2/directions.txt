@@ -1,0 +1,22 @@
+Move forward
+Rotate left 90 degrees
+Move forward
+Rotate left 90 degrees
+Rotate left 90 degrees
+Move forward
+Move forward
+Move forward
+Rotate left 90 degrees
+Move forward
+Move forward
+Rotate left 90 degrees
+Move forward
+Move forward
+Move forward
+Move forward
+Move forward
+Rotate left 90 degrees
+Rotate left 90 degrees
+Move forward
+Rotate left 90 degrees
+Move forward
