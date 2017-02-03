@@ -184,5 +184,9 @@ G = Graph(create_map('f.txt'))
 R = Robot(2, 5, 90, G.map[1][0], G)
 f = open('directions.txt', 'w')
 f.truncate()
-for line in R.bad_find_path():
-    f.write(line + '\n')
+path = R.bad_find_path()
+if path:
+    for line in R.bad_find_path():
+        f.write(line + '\n')
+else:
+    f.write("No path to the goal node exists!")

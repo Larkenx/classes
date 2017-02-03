@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname lab6) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname lab6) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 (require 2htdp/batch-io)
 ; Exercise 1
 ; A ListofStrings contains:
@@ -50,7 +50,10 @@
     )
   )
 
-(check-expect (search-files filelist "Ogden")
+(define (search-files2 file_list word)
+  (filter (lambda (x) (file-has-word? x word)) file_list))
+
+(check-expect (search-files2 filelist "Ogden")
               (cons
                "thefly.txt"
                (cons
@@ -59,34 +62,4 @@
                       (cons "theostrich.txt"
                             (cons "thetermite.txt" '()))))))
 
-; Exercise 6
-(search-files filelist "one")
-
-
-(require 2htdp/image)
-(require 2htdp/universe)
-; Exercise 7
-; A ripple is a:
-; (cons x (cons y (cons r)))
-
-; A WorldofRipples is one of
-; - empty
-; (cons Ripple WorldofRipples)
-
-(define (ripple-image r)
-  (circle r "outline" "blue"))
-
-(define (make-ripple ripple)
-  (place-image
- (ripple-image (car (cdr (cdr ripple))))
- (car ripple)
- (car (cdr ripple))
- (empty-scene 200 200)))
-
-(define tiny-ripple
-  (list 100 100 1))
-
-(make-ripple tiny-ripple)
-
-(big-bang tiny-ripple (to-draw make-ripple))
 
