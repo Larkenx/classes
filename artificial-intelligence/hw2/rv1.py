@@ -120,16 +120,13 @@ class Robot:
                 instructions.append(self.rotate("left"))
                 instructions.append(self.move())
             elif not left_tile:
-                print "There is a left path!"
+                # print "There is a left path!"
                 instructions.append(self.rotate("left"))
                 instructions.append(self.move())
             else:
                 instructions.append(self.move())
 
         return instructions
-
-
-
 
 class Tile:
 
@@ -186,7 +183,7 @@ f = open('directions.txt', 'w')
 f.truncate()
 path = R.bad_find_path()
 if path:
-    for line in R.bad_find_path():
+    for line in path:
         f.write(line + '\n')
 else:
     f.write("No path to the goal node exists!")
