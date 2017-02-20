@@ -1,12 +1,18 @@
 # Steven Myers
 # February 18, 2017
 # Gobblet Implementation in Python
+import os
+import types
+
+def cls():
+    os.system('cls')
+
 class Stack:
     def __init__(self):
         self.pieces = []
 
     def __repr__(self):
-        return self.pieces
+        return self
 
     def __str__(self):
         return str(self.peek())
@@ -26,10 +32,6 @@ class Stack:
         else:
             return []
 
-    # Add a piece to the top of the stack
-    def add_piece(self, piece):
-        self.pieces.append(piece)
-
     def can_add(self, piece):
         return self.peek().size < piece.size and not self.full()
 
@@ -39,8 +41,7 @@ class Stack:
 
     # Returns whether or not the tile has any pieces - equiv to checking if pieces is empty
     def empty(self):
-        return self.pieces
-
+        return not self.pieces
 
 class Player:
     def __init__(self, id):
@@ -57,13 +58,104 @@ class Player:
         return self
 
     def play(self, game):
+        # Printing the play prompt...
+        cls() # Clear the prompt history
+        print "Game Board (" + self.id + "'s move!)"
+        print "----------"
         print game
-        print "It's your turn!"
-        print "Your stacks of pieces:"
+        print "Your stacks of pieces: (Game pieces are ordered by player ID and size)"
+        print "----------"
         for i in range(0,3):
-            print "S" + str(i) + ": " + str(self.stacks[i])
-        # ... alter the game state directly ...
-        raw_input("Select a piece to move: ")
+            print "S" + str(i+1) + ": " + str(self.stacks[i])
+        print "\nInstructions:\n----------"
+        print "*Enter in the name of one your stacks to select a piece from your stacks (S1, S2, S3),"
+        print " or the location of the piece on the board that you want to move as a tuple like '0,0' or '1,3'"
+        inp = raw_input("> ")
+        # Parsing user input
+        loc1 = None
+        try:
+            if inp[0] == "S" and int(inp[1]) in range(1,4): # user selected piece from their stacks off to the side
+                loc1 = self.stacks[int(inp[1])-1]
+            else: # user entered in a board location as a tuple of "x,y"
+                x = int(inp[0])
+                y = int(inp[2])
+                loc1 = game[y][x]
+            if loc1 == None or not loc1.peek().owner == self.id:
+                print "That's not your piece!"
+                raise ValueError()
+        except Exception as e: # If anything from above failed, we know they didn't properly input the data
+            print "Invalid input...Try again."
+            raw_input("[Press Enter to return]")
+            return self.play(game)
+
+        # Successfully picked a piece to move...
+        print "\nYou selected " + str(loc1) + " from " + inp + "!"
+        print "\n*Enter the location on the board that you want to move the piece"
+        inp2 = raw_input("> ")
+
+        loc2 = None
+        # Test to see if input was good...
+        try:
+            x = int(inp2[0])
+            y = int(inp2[2])
+            loc2 = game[y][x]
+            if loc2 == None:
+                raise ValueError()
+        except Exception as e: # If anything from above failed, we know they didn't properly input the data
+            print "Invalid input...Try again."
+            raw_input("[Press Enter to return]")
+            return self.play(game)
+
+        if loc2.empty():
+            print "\nTarget tile is an empty tile at " + inp2 + "!"
+        else:
+            print "\nTarget tile is " + str(loc2) + " at " + inp2 + "!"
+
+        # successfully picked a location to move to....
+        piece_to_move = loc1.peek()
+        other_piece = loc2.peek()
+        if other_piece: # user is trying to move piece to a tile with another piece on it
+            """
+            We have an important additional rule from the rules to implement... (http://www.boardspace.net/gobblet/english/gobblet_rules.pdf)
+            If a new goblet is put into play, you must place it on an empty square. There is one
+            exception to this rule: if your opponent already has 3 gobblets in a row on the board,
+            you may gobble up 1 of the 3 pieces in the line with a gobblet taken directly from one of the external stacks
+            """
+            if (not other_piece.owner == self.id) and other_piece.size < piece_to_move.size: # piece is not our own and is smaller
+                if inp[0] == "S": # piece came from stack
+                    valid_pieces = game.threes(other_piece.owner) # enemy piece is one of a three-in-a-row
+                    if other_piece in valid_pieces:
+                        print "Moved " + str(loc1) + " to " + str(inp2)
+                        print "You covered up an enemy piece!"
+                        raw_input("[Press Enter to end turn]")
+                        loc2.push(loc1.pop())
+                    else:
+                        print "You can't move a piece from your external stack to cover"
+                        print "an enemy piece, unless that piece is a member of a three-in-a-row!"
+                        print "Please try a different move."
+                        raw_input("[Press Enter to return]")
+                        return self.play(game)
+                else: # piece already on the board, covering enemy piece
+                    print "Moved " + str(loc1) + " to " + str(inp2) + "."
+                    print "You covered up an enemy piece!"
+                    raw_input("[Press Enter to end turn]")
+                    loc2.push(loc1.pop())
+
+            elif other_piece.size < piece_to_move.size: # covering one of our own pieces that is smaller
+                print "Moved " + str(loc1) + " to " + str(inp2) + "."
+                print "You covered up one of your own pieces!"
+                raw_input("[Press Enter to end turn]")
+                loc2.push(loc1.pop())
+            else: # invalid move
+                print "You cannot cover up a larger piece with a smaller or equally sized piece!"
+                print "Please try a different move."
+                raw_input("[Press Enter to return]")
+                return self.play(game)
+        else: # empty tile
+            print "Moved " + str(loc1) + " to " + str(inp2) + "."
+            raw_input("[Press Enter to end turn]")
+            loc2.push(loc1.pop())
+
         return self
 
 class Piece:
@@ -72,6 +164,9 @@ class Piece:
         self.size = size
 
     def __str__(self):
+        return str(self.owner) + str(self.size)
+
+    def __repr__(self):
         return str(self.owner) + str(self.size)
 
 # A Tile is a single cell in a 2D 4x4 game board. It extends my stack class,
@@ -94,14 +189,13 @@ class Game:
                 self.board[i].append(Tile(j, i)) # reverse x,y ordering
 
     def __str__(self):
-        board_axes = ["A", "B", "C", "D"]
         axis_str = ""
-        for axis in board_axes:
-            axis_str += "    " + axis + " "
+        for axis in range(0,4):
+            axis_str += "    " + str(axis) + " "
         axis_str += '\n'
 
         items = [str(item) for row in self.board for item in row]
-        return axis_str + ''.join([str(i/4) + " " + str(items[i:i+4]) +'\n' for i in range(0, len(items), 4)])
+        return ''.join([str(i/4) + " " + str(items[i:i+4]) +'\n' for i in range(0, len(items), 4)]) + axis_str
 
     def __getitem__(self, key): return self.board[key]
 
@@ -114,20 +208,63 @@ class Game:
         while True:
             self.turn()
 
+    # function that gets all of the pieces of a player that are a part of a 3-in-a-row
+    def threes(self, pid):
+        # Horizontal lines
+        valid_horiz = []
+        for row in self.board:
+            possible_res = list(filter(lambda x: x.peek() and x.peek().owner == pid, row))
+            if len(possible_res) == 3:
+                valid_horiz += possible_res
+
+        # Vertical lines
+        valid_vert = []
+        for i in range(0, 4):
+            col = [self.board[j][i] for j in range(0,4)]
+            possible_res = list(filter(lambda x: x.peek() and x.peek().owner == pid, col))
+            if len(possible_res) == 3:
+                valid_vert += possible_res
+
+        # Valid diag (upperleft to bottom right)
+        valid_diag = []
+        diag = [self.board[j][j] for j in range(0,4)]
+        possible_res = list(filter(lambda x: x.peek() and x.peek().owner == pid, diag))
+        if len(possible_res) == 3:
+            valid_diag += possible_res
+
+        # Valid diag (bottom left to upperright)
+        diag = [self.board[j][j] for j in range(3,-1,-1)]
+        possible_res = list(filter(lambda x: x.peek() and x.peek().owner == pid, diag))
+        if len(possible_res) == 3:
+            valid_diag += possible_res
+
+        combined_stacks = valid_diag + valid_vert + valid_horiz
+        pieces = [s.peek() for s in combined_stacks]
+        return list(set(pieces)) # cleanse duplicates
+
     # Alpha-beta functions. Functions are heavily based off of templates
     # given in Artificial Intelligence: A Modern Approach (3rd Edition) p. 170
     def terminal_test(self):
         # diagonal win
-        diag_pieces = [self.board[i][i] for i in range(0, 4)]
-        p1_win = reduce(lambda a,b: b.owner == self.p1 and a, diag_pieces, True)
-        p2_win = reduce(lambda a,b: b.owner == self.p2 and a, diag_pieces, True)
+        diag_pieces_1 = [self.board[i][i] for i in range(0, 4)]
+        diag_pieces_2 = [self.board[i][i] for i in range(3, -1,-1)]
+        cols = []
+        for i in range(0, 4):
+            cols += [self.board[j][i] for j in range(0,4)]
+
+        p1_win = reduce(lambda a,b: b.owner == self.p1 and a, diag_pieces_1, True) or
+                 reduce(lambda a,b: b.owner == self.p1 and a, diag_pieces_2, True) or
+                 reduce(lambda a,b: (lambda: c,d: c.owner == self.p1 )or a, cols, False)
+
+
+
+        # p2_win = reduce(lambda a,b: b.owner == self.p2 and a, diag_pieces, True)
         if p1_win:
             return 0 # p1 wins
         elif p2_win:
             return 1 # p2 wins
         else:
             return -1 # not a terminal state
-
 
     # Returns an action
     def alpha_beta_search(self):
@@ -139,12 +276,13 @@ class Game:
     def min_val(self, a, b):
         pass
 
+# Players can have different character repesentations.
+# Their pieces on the board are represented as a string of the player ID
+# and the size of the piece. So, the smallest possible piece for player 'P' would be
+# represented by a string "P1". Ownership of pieces is also linked by this player ID.
+# So, player ID's cannot be the same! I am using P and Q for my example players.
 test_game = Game(Player("P"), Player("Q"), "P")
-"""
-# Sample game axes/positions
-for i in range(0, 4):
-    for j in range(0, 4):
-        test_game[i][j] = Piece(j+1, board_axes[i])
-"""
-test_game[0][0] = Piece("P", 1)
+test_game[0][0].push(Piece("Q", 2))
+test_game[1][1].push(Piece("Q", 3))
+test_game[2][2].push(Piece("Q", 4))
 test_game.start()
