@@ -5,7 +5,7 @@ import os
 import types
 
 def cls():
-    os.system('cls')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 class Stack:
     def __init__(self):
@@ -161,6 +161,7 @@ class Player:
 class Piece:
     def __init__(self, owner, size):
         self.owner = owner
+        self.external_piece =
         self.size = size
 
     def __str__(self):
@@ -180,6 +181,7 @@ class Tile(Stack):
 class Game:
     def __init__(self, p1, p2, current_player):
         self.board = []
+        self.turns = 0 # keeping track of many turns have passed in the game
         self.p1 = p1
         self.p2 = p2
         self.current_player = self.p1 if self.p1.id == current_player else self.p2
@@ -203,10 +205,20 @@ class Game:
     def turn(self):
         self.current_player.play(self)
         self.current_player = self.p2 if self.p1 == self.current_player else self.p1
+        self.turns += 1
 
     def start(self):
-        while True:
+        while self.terminal_test() == -1:
             self.turn()
+
+        # if we reach this point, game is over!
+        cls()
+        if self.terminal_test() == 0: # P1 wins
+            print self.p1.id + " won the game!"
+        else: # P2 wins
+            print self.p2.id + " won the game!"
+
+        print self
 
     # function that gets all of the pieces of a player that are a part of a 3-in-a-row
     def threes(self, pid):
@@ -244,21 +256,31 @@ class Game:
 
     # Alpha-beta functions. Functions are heavily based off of templates
     # given in Artificial Intelligence: A Modern Approach (3rd Edition) p. 170
+
+    # Returns 0 if p1 wins, 1 if p2 wins, and -1 if no winner yet
     def terminal_test(self):
-        # diagonal win
-        diag_pieces_1 = [self.board[i][i] for i in range(0, 4)]
-        diag_pieces_2 = [self.board[i][i] for i in range(3, -1,-1)]
-        cols = []
+        diag_pieces_1 = [self.board[i][i].peek() for i in range(0, 4)]
+        diag_pieces_2 = [self.board[3-i][i].peek() for i in range(3, -1,-1)]
+        items = [diag_pieces_1, diag_pieces_2]
         for i in range(0, 4):
-            cols += [self.board[j][i] for j in range(0,4)]
+            items.append([self.board[j][i].peek() for j in range(0,4)])
+            items.append([self.board[i][j].peek() for j in range(0,4)])
 
-        p1_win = reduce(lambda a,b: b.owner == self.p1 and a, diag_pieces_1, True) or
-                 reduce(lambda a,b: b.owner == self.p1 and a, diag_pieces_2, True) or
-                 reduce(lambda a,b: (lambda: c,d: c.owner == self.p1 )or a, cols, False)
+        # Helper code block that prints all possible paths
+        """
+        for item in items:
+            buf = ""
+            for p in item:
+                buf += str(p) + " "
+            print buf + str(reduce(lambda a,b: not b == [] and b.owner == self.p1.id and bool(a), item))  + '\n'
+        """
 
+        def winner(id):
+            return reduce(lambda prev, item: reduce(lambda a,b: not b == [] and b.owner == id and bool(a), item) or prev, items, False)
 
+        p1_win = winner(self.p1.id)
+        p2_win = winner(self.p2.id)
 
-        # p2_win = reduce(lambda a,b: b.owner == self.p2 and a, diag_pieces, True)
         if p1_win:
             return 0 # p1 wins
         elif p2_win:
@@ -266,14 +288,26 @@ class Game:
         else:
             return -1 # not a terminal state
 
+    # Returns all of the stacks containing a piece owned by current_player
+    def get_stacks(self):
+        return [cell for row in self.board for cell in row if cell.peek() != [] and cell.peek().owner == self.current_player.id]
+
+    # Returns all of the possible locations a given piece can move to. This only considers the current_player
+    def get_valid_locations(self, piece):
+        threes
+        for row in self.board:
+            for cell in row:
+                if cell.peek() != [] and cell.peek().size <
+
+    # Returns all possible moves up to turn N
+    def actions(self, n):
+        pass
+
     # Returns an action
     def alpha_beta_search(self):
         pass
 
-    def max_val(self, a, b):
-        pass
-
-    def min_val(self, a, b):
+    def p_val(self, a, b): # player 1
         pass
 
 # Players can have different character repesentations.
@@ -281,8 +315,34 @@ class Game:
 # and the size of the piece. So, the smallest possible piece for player 'P' would be
 # represented by a string "P1". Ownership of pieces is also linked by this player ID.
 # So, player ID's cannot be the same! I am using P and Q for my example players.
+
 test_game = Game(Player("P"), Player("Q"), "P")
-test_game[0][0].push(Piece("Q", 2))
-test_game[1][1].push(Piece("Q", 3))
-test_game[2][2].push(Piece("Q", 4))
-test_game.start()
+# # Terminal State Tests...
+## Row test
+# test_game[0][0].push(Piece("P", 2))
+# test_game[0][1].push(Piece("P", 3))
+# test_game[0][2].push(Piece("P", 4))
+# test_game[0][3].push(Piece("P", 4))
+## Column test
+# test_game[0][3].push(Piece("P", 4))
+# test_game[1][3].push(Piece("P", 4))
+# test_game[2][3].push(Piece("P", 4))
+# test_game[3][3].push(Piece("P", 4))
+## Diag test
+# test_game[0][0].push(Piece("P", 4))
+# test_game[1][1].push(Piece("P", 4))
+# test_game[2][2].push(Piece("P", 4))
+# test_game[3][3].push(Piece("P", 4))
+## Diag test 2
+# test_game[0][3].push(Piece("P", 4))
+# test_game[1][2].push(Piece("P", 4))
+# test_game[2][1].push(Piece("P", 4))
+# test_game[3][0].push(Piece("P", 4))
+# test_game.terminal_test()
+
+test_game[0][3].push(Piece("P", 4))
+test_game[1][2].push(Piece("Q", 4))
+# test_game[2][1].push(Piece("P", 4))
+for x in test_game.get_stacks():
+    print x
+# test_game.start()

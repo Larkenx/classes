@@ -1,10 +1,11 @@
 from scipy.ndimage.filters import gaussian_filter
 from scipy.signal import convolve2d
+from scipy.spatial.distance import euclidean
 from numpy import *
 from pylab import *
 from PIL import Image
 
-img = Image.open('zebra.jpg').convert('L')
+img = array(Image.open('zebra.jpg').convert('L'))
 
 def prepare_save(f):
     f_max = amax(f)
@@ -36,9 +37,26 @@ for f in filters:
     i += 1
 
 # Convolving all 8 filters with test image
+activated_zebras = []
+
 i = 0
 for f in filters:
     f_name = "zebra_activation" + str(i) + ".jpg"
     activated_img = convolve2d(img, f, mode="same")
     Image.fromarray(prepare_save(activated_img)).save(f_name)
+    activated_zebras.append(activated_img)
     i += 1
+
+# Exercise 3
+D = empty_like(img)
+center = (img.shape[0] / 2, img.shape[1] / 2)
+cp = [x[center[0], center[1]] for x in activated_zebras]
+for i in range(0, img.shape[0]):
+    for j in range(0, img.shape[1]):
+        p = [x[i,j] for x in activated_zebras]
+        D[i,j] = euclidean(cp,p)
+
+d_max = amax(D)
+D = D + 255 - d_max
+
+Image.fromarray(D).save('zebra_texture_comparison.jpg')
