@@ -3,13 +3,21 @@
 # Gobblet Implementation in Python
 import os
 import types
+from copy import copy, deepcopy
 
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-class Stack:
-    def __init__(self):
+# A tile is a stack that keeps track of its x,y location on the game board.
+# A player's external pieces are also held in a tile, but has the external attribute
+# set to true. If a tile is an external player's stack, then the x component is the index
+# in the player.stack attribute.
+class Tile:
+    def __init__(self, x, y, external=False):
         self.pieces = []
+        self.x = x
+        self.y = y
+        self.external = external
 
     def __repr__(self):
         return self
@@ -46,7 +54,7 @@ class Stack:
 class Player:
     def __init__(self, id):
         self.id = id
-        self.stacks = [Stack() for i in range(0, 3)]# game stacks, not the data structure
+        self.stacks = [Tile(i, -1, True) for i in range(0, 3)]
         for s in self.stacks:
             for i in range(0, 4):
                 s.push(Piece(self.id, i+1))
@@ -156,12 +164,13 @@ class Player:
             raw_input("[Press Enter to end turn]")
             loc2.push(loc1.pop())
 
+        loc2.peek().external_piece = False # if we move a piece, it must not be in the external stack anymore
         return self
 
 class Piece:
     def __init__(self, owner, size):
         self.owner = owner
-        self.external_piece =
+        self.external_piece = True
         self.size = size
 
     def __str__(self):
@@ -169,14 +178,6 @@ class Piece:
 
     def __repr__(self):
         return str(self.owner) + str(self.size)
-
-# A Tile is a single cell in a 2D 4x4 game board. It extends my stack class,
-# and only has an additional functionality of having x,y coords stored.
-class Tile(Stack):
-    def __init__(self, x, y):
-        Stack.__init__(self)
-        self.x = x
-        self.y = y
 
 class Game:
     def __init__(self, p1, p2, current_player):
@@ -293,15 +294,47 @@ class Game:
         return [cell for row in self.board for cell in row if cell.peek() != [] and cell.peek().owner == self.current_player.id]
 
     # Returns all of the possible locations a given piece can move to. This only considers the current_player
-    def get_valid_locations(self, piece):
-        threes
-        for row in self.board:
-            for cell in row:
-                if cell.peek() != [] and cell.peek().size <
+    def get_valid_locations(self, piece_loc):
+        piece = piece_loc.peek()
+        # Two cases - our piece is an external one (from player's stacks) or it's already on the board
+        # initially fill this with all empty spaces on the board (valid locations regardless)
+        # or locations with a piece that the player owns that is smaller than the current piece we're placing
+        valid_locations = [x for row in self.board for x in row if x.peek() == [] or (x.peek().owner == piece.owner and piece.size > x.peek().size)]
+        if piece.external_piece:
+            # if it's an external piece, we can only cover enemy pieces that are part of a three-in-a-row
+            # and whose size is smaller than our piece in question
+            valid_locations += [x for x in self.threes(self.current_player.id) if x.size < piece.size]
+        else:
+            # if it's not an external piece, then we can cover any enemy piece that's smaller than ours
+            valid_locations += [x for row in self.board for x in row if x.peek() != [] and (x.peek().owner != piece.owner and piece.size > x.peek().size)]
 
-    # Returns all possible moves up to turn N
+        return valid_locations
+
+    # Returns all possible moves up to turn N as a list of tuples
     def actions(self, n):
-        pass
+        result = []
+        for p in self.get_stacks():
+            for q in self.get_valid_locations(p): # expensive?
+                result += (p, q)
+        return result
+
+    # Returns the next game if a particular action is carried out. An action is a tuple
+    # of the piece to be moved and where it should be moved to.
+    def next(self, action):
+        next_game = deepcopy(self)
+        # Need to parse the x,y coords of both components of action. Again,
+        # it is possible that our first component of action (the piece to move)
+        # is from the external stack, so we need to check that...
+        if action[0].external:
+            p = next_game.current_player.stacks[action[0].x].pop()
+            next_game[action[1].x][action[1].y].push(p)
+        else:
+            next_game[action[1].x][action[1].y].push(next_game[action[1].x][action[1].y].pop())
+
+        next_game.turns += 1
+        next_game.current_player = next_game.p2 if next_game.p1 == next_game.current_player else next_game.p1
+
+        return next_game
 
     # Returns an action
     def alpha_beta_search(self):
@@ -340,9 +373,15 @@ test_game = Game(Player("P"), Player("Q"), "P")
 # test_game[3][0].push(Piece("P", 4))
 # test_game.terminal_test()
 
-test_game[0][3].push(Piece("P", 4))
-test_game[1][2].push(Piece("Q", 4))
-# test_game[2][1].push(Piece("P", 4))
-for x in test_game.get_stacks():
-    print x
+# # Testing the Game.next method
+# test_game[1][2].push(Piece("Q", 4))
+# test_game[2][1].push(Piece("P", 3))
+# print str(test_game.current_player) + str(test_game.turns)
+# print test_game
+# ng = test_game.next((test_game.p1.stacks[0], test_game[0][0]))
+# print str(ng.current_player) + str(ng.turns)
+# print ng
+
+# # Testing the Game.actions method
+
 # test_game.start()

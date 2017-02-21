@@ -56,7 +56,11 @@ for i in range(0, img.shape[0]):
         p = [x[i,j] for x in activated_zebras]
         D[i,j] = euclidean(cp,p)
 
+# imshow(D)
+# show(D)
 d_max = amax(D)
 D = D + 255 - d_max
+# D = prepare_save(D)
+# print D
 
 Image.fromarray(D).save('zebra_texture_comparison.jpg')
