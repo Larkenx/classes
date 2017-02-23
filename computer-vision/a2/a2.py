@@ -6,11 +6,12 @@ from pylab import *
 from PIL import Image
 
 img = array(Image.open('zebra.jpg').convert('L'))
-
 def prepare_save(f):
-    f_max = amax(f)
-    f_min = amin(f)
-    return uint8(((f - f_min) / (f_max - f_min)) * 255)
+    f_max = double(amax(f))
+    f_min = double(amin(f))
+    # print f_max
+    # print f_min
+    return uint8(( (f - f_min) / (f_max - f_min) * 255))
 
 # Generating guassian filters
 impulse = zeros((60, 60))
@@ -56,11 +57,6 @@ for i in range(0, img.shape[0]):
         p = [x[i,j] for x in activated_zebras]
         D[i,j] = euclidean(cp,p)
 
-# imshow(D)
-# show(D)
-d_max = amax(D)
-D = D + 255 - d_max
-# D = prepare_save(D)
-# print D
 
-Image.fromarray(D).save('zebra_texture_comparison.jpg')
+Image.fromarray(prepare_save(D)).save('zebra_texture_comparison.jpg')
+

@@ -60,7 +60,7 @@
 \section*{Introduction to the Chaos Game}
 
 \paragraph{}
-The chaos game is an iterative process that will produce an image known as the Sierpenski triangle. Images like the Sierpenski triangle are called\textit{fractals}. A fractal is an image that is created by an iterable, mathematical process. Fractals have unique mathematical qualities that can be discovered by observation. We will explore the unique qualities of the Sierpenski triangle by observing its formation from the chaos game. The rules for how to play the chaos game are listed below for reference:
+The chaos game is an iterative process that will produce an image known as the Sierpinski triangle. Images like the Sierpinski triangle are called\textit{fractals}. A fractal is an image that is created by an iterable, mathematical process. Fractals have unique mathematical qualities that can be discovered by observation. We will explore the unique qualities of the Sierpinski triangle by observing its formation from the chaos game. The rules for how to play the chaos game are listed below for reference:
 \begin{enumerate}
     \item
     Start by placing three points on a piece of paper. For the best results, try placing the points roughly in the three vertices of an equilateral triangle.
@@ -88,21 +88,23 @@ In the first iterations of the chaos game, it's likely that the generated points
 Looking at Figure 1, we can immediately see that there are well-defined spaces where no points fall. When we iterate 250 times or more, we begin to see these spaces fully develop as upside down, circumscribed triangles. If we try replay the chaos game by hand and select new initial starting points, we will find that no initial starting point can produce subsequent points within these zones where no points fall, no matter the initial starting point we choose \textit{except} if we choose an initial starting point that is directly within one of the upside down triangles where no points fall. However, even when we purposefully select an initial starting point in zones where no points fall, we will still eventually get the same image as other initial starting points. Moreover, we will not produce points that are \textit{closer} to the center than our initial point. An example of this phenonmenon is found in Figure 2.
 \paragraph{}
  So, by iteratively working the chaos game out, we see that a common pattern emerges that is \textit{not} random. We have consistent areas in which no points fall, and we eventually get the same resulting image regardless of our initial starting point.
-\section*{The Sierpenski Triangle}
+\section*{The Sierpinski Triangle}
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\linewidth, height=.25\textheight]{ideal}
-    \caption{The ideal Sierpenski triangle shape.}
+    \caption{The ideal Sierpinski triangle shape.}
 \end{figure}
 \paragraph{}
-When the chaos game is iterated infinitely many times, it eventually produces the Sierpenski triangle. In an ideal Sierpenski triangle, all of the edges are fully formed as we can nearly see in the later iterations of the chaos game. Figure 3 shows the fully formed Sierpenski triangle. The Sierpenski triangle has a number of unique qualities that extend beyond how the points fall in the chaos game. It consists of smaller Sierpenski triangles in its three sub-triangles. Subtriangles are formed by the circumscribed upside triangles in the center of each Sierpenski triangle - forming four triangles of 1/4 the surface area of the original triangle. The upside triangle in the center serves as "lost space" where the image is no longer created. We can think of this as lost surface area.
+When the chaos game is iterated infinitely many times, it eventually produces the Sierpinski triangle. In an ideal Sierpinski triangle, all of the edges are fully formed as we can nearly see in the later iterations of the chaos game. Figure 3 shows the fully formed Sierpinski triangle. The Sierpinski triangle has a number of unique qualities that extend beyond how the points fall in the chaos game. It consists of smaller Sierpinski triangles in its three sub-triangles. Subtriangles are formed by the circumscribed upside triangles in the center of each Sierpinski triangle - forming four triangles of 1/4 the surface area of the original triangle. The upside triangle in the center serves as "lost space" where the image is no longer created. We can think of this as lost surface area.
 \paragraph{}
-Like we did with the chaos game, we can come up with a series of steps to create the ideal Sierpenski triangle shape:
+Like we did with the chaos game, we can come up with a series of steps to create the ideal Sierpinski triangle shape:
 \begin{enumerate}
     \item Draw an equilateral triangle.
     \item Draw an upside down equilateral triangle within the equilateral triangle. This triangle should be 1/4 of the size of the original, and its vertices will be the midpoints of the edges of the original triangle.
     \item Repeat step 2 indefinitely for the three upright, smaller subtriangles.
 \end{enumerate}
 \paragraph{}
-With this new set of instructions, we can begin to make further observations about the Sierpenski triangle. We can immediately notice that every time we create a new Sierpenski triangle, the original triangle loses a quarter of its surface area. The surface area is \textit{lost} in the sense that no further iterations of the Sierpenski triangle are generated in the upside down triangles. In terms of the chaos game, the surface area is lost since no points will ever fall within the the middle of the triangle. Since the ideal Sierpenski triangle shape continues indefinitely within its subtriangles, and we know that from each iteration a quarter of surface area is lost, we can deduce that the area of our original Sierpenski triangle approachs a limit of zero surface area. So, we have a shape that essentially has zero surface area.
+With this new set of instructions, we can begin to make further observations about the Sierpinski triangle. We can immediately notice that every time we create a new Sierpinski triangle, the original triangle loses a quarter of its surface area. The surface area is \textit{lost} in the sense that no further iterations of the Sierpinski triangle are generated in the upside down triangles. In terms of the chaos game, the surface area is lost since no points will ever fall within the the middle of the triangle. Since the ideal Sierpinski triangle shape continues indefinitely within its subtriangles, and we know that from each iteration a quarter of surface area is lost, we can deduce that the area of our original Sierpinski triangle approachs a limit of zero surface area. So, we have a shape that essentially has zero surface area.
+\paragraph{}
+If the ideal Sierpinski triangle has \textit{zero} surface area, or at least an infinitesimally small surface area, then we must consider whether or not the Sierpinski triangle is actually a 2 dimensional shape since a quality of 2D shapes is its surface area. We know that 1-dimensional shapes are comprised completely of line segments and 1D shapes
 \end{document}
