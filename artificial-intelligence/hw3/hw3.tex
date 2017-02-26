@@ -85,6 +85,8 @@ All the work herein is mine.
     \item % problem one
     While I think that there are merits to this \textit{general search strategy}, the difference between navigating a maze and a game is that the path from the start to the exit of the maze is computed a single time since neither the start nor the goal change at some intermediate point in navigating the maze. However, in creating a search strategy for a game, we need to consider that every turn of the game, our entire search space changes. Additionally, when playing a game we don't have a singular goal (like the exit of a maze), we have a goal to "beat" the other player in some way which has different meaning given the state of the game. An action that might result in winning a game in one state may lose the game in another state. The same can't truly be said for simply navigating a maze.
 
+    The difference between a general search strategy and a strategy we would use to search a game's state space is that games involve an adversary where general search does not. In the example of navigating a maze, we simply have nodes that we can travel to that have some kind of distance from the goal node and weight at each intermediate node. In a game, there are two or more adversaries with contingent strategies that manipulates all game state nodes in each move.
+
     \item
     In short, yes we can modify minimax to work with three players. Instead of a two-player minimax function where one player attempts to minimize the "score" or cost and other maximizes, we would need to make it so our minimax function attempts to maximize the current player's score, while minimizing both of the other player's scores. For instance, \textit{A} will want to have a better score than both \textit{B} and \textit{C}.
     \\Here's a sample of what that might look like:
@@ -101,7 +103,7 @@ Turn 2, B's move:
 {1, 0, 1}  {10, 1, 10}  {5, 0, 5}
 
 *Turn 3, C's move:
-         ? 
+         ?
 \end{verbatim}
 
     \textbf{*}We would need some additional functionality to determine whether or not it's more beneficial to take a move that would result in a net gain in \textit{B}'s score, but would also result in a more disastrous gain for our opponents. Turn 2 in the example above gives such an example. We could not simply choose the middle branch, despite that it maximizes \textit{B}'s score since the benefit for \textit{A} and \textit{C} is so great.
