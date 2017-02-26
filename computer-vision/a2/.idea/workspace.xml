@@ -18,8 +18,8 @@
       <file leaf-file-name="gobblet.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../artificial-intelligence/hw3/gobblet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="380" column="63" lean-forward="true" selection-start-line="380" selection-start-column="63" selection-end-line="380" selection-end-column="63" />
+            <state relative-caret-position="265">
+              <caret line="362" column="38" lean-forward="true" selection-start-line="362" selection-start-column="38" selection-end-line="362" selection-end-column="38" />
               <folding>
                 <element signature="e#551#1527#0" expanded="false" />
                 <element signature="e#1569#7377#0" expanded="false" />
@@ -346,7 +346,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1438" height="873" extended-state="1" />
+    <frame x="0" y="22" width="1438" height="873" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17246175" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -482,8 +482,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../artificial-intelligence/hw3/gobblet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="380" column="63" lean-forward="true" selection-start-line="380" selection-start-column="63" selection-end-line="380" selection-end-column="63" />
+        <state relative-caret-position="265">
+          <caret line="362" column="38" lean-forward="true" selection-start-line="362" selection-start-column="38" selection-end-line="362" selection-end-column="38" />
           <folding>
             <element signature="e#551#1527#0" expanded="false" />
             <element signature="e#1569#7377#0" expanded="false" />
