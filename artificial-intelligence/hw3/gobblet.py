@@ -186,8 +186,8 @@ class Robot(Player):
     def play(self, game):
         # Robot generates an action via alpha beta search
         cls()
-        print "Robot is making a move..."
-        action = self.alpha_beta_search(game, game.difficulty*2 + 1)
+        print "{} is making a move...".format(self.id)
+        action = self.alpha_beta_search(game, game.difficulty + 2)
         if action[0].external:
             p = game.current_player.stacks[action[0].x].pop()
             p.external = False
@@ -198,7 +198,7 @@ class Robot(Player):
 
         p, q = action[0], action[1]
         game.history.append((p,q))
-        print "Robot moves from ({},{}) to ({}, {})".format(p.x, p.y, q.x, q.y)
+        print "{} moved {} from ({},{}) to ({}, {})".format(self.id, p, p.x, p.y, q.x, q.y)
         print game
         raw_input("[Press enter to start next turn]")
 
@@ -209,6 +209,8 @@ class Robot(Player):
         acts =  state.actions()
         if self == state.p1: # MAX
             possibilities = [self.max_val(state.next(a), -1*inf, inf, state.turns + d) for a in acts]
+            for v in possibilities:
+                print v
             return acts[possibilities.index(max(possibilities))]
 
         else: # MIN
@@ -218,7 +220,7 @@ class Robot(Player):
     # used in Alpha-beta
     def max_val(self, state, a, b, d):
         end_game = state.terminal_test()
-        if end_game:
+        if end_game != 0:
             return end_game
         elif d == state.turns:
             return state.eval()
@@ -235,7 +237,7 @@ class Robot(Player):
 
     def min_val(self, state, a, b, d):
         end_game = state.terminal_test()
-        if end_game:
+        if end_game != 0:
             return end_game
         elif d == state.turns:
             return state.eval()
@@ -391,7 +393,7 @@ class Game:
 
     # evaluation function to award a value to some cut off node
     def eval(self):
-        return len(self.threes(self.current_player))*3 + len(self.twos(self.current_player))
+        return 0 # len(self.threes(self.current_player)) + len(self.twos(self.current_player))
 
     # Returns 0 if p1 wins, 1 if p2 wins, and -1 if no winner yet
     def terminal_test(self):
@@ -418,9 +420,9 @@ class Game:
         p2_win = winner(self.p2.id)
 
         if p1_win:
-            return self.turns * 2 # p1 wins
+            return inf # p1 wins
         elif p2_win:
-            return self.turns * -2 # p2 wins
+            return -1*inf # p2 wins
         else:
             return 0 # not a terminal state
 
@@ -493,7 +495,7 @@ class Game:
 # and the size of the piece. So, the smallest possible piece for player 'P' would be
 # represented by a string "P1". Ownership of pieces is also linked by this player ID.
 # So, player ID's cannot be the same! I am using P and Q for my example players.
-# test_game = Game(Player("P"), Player("Q"), 0, 0)
+test_game = Game(Player("P"), Player("Q"), 0, 0)
 ## Terminal State Tests...
 ## Row test
 # test_game[0][0].push(Piece("Q", 2))
@@ -530,7 +532,6 @@ class Game:
 
 ## Testing the Game.actions method
 # print len(test_game.actions()) == 48 # initial move has 48 possibilities...
-# test_game.start()
 # for p, q in test_game.actions():
 #     print "({},{}) to ({}, {})".format(p.x, p.y, q.x,q.y)
 #     print test_game.next((p,q))
@@ -550,6 +551,13 @@ def gobby(players, level, time):
         print "Invalid player parameters!"
         return 0
 
+    g[0][0].push(Piece("P", 4))
+    g[0][1].push(Piece("P", 4))
+    g[0][2].push(Piece("P", 4))
+    g[0][3].push(Piece("Q", 3))
+    g[1][3].push(Piece("Q", 3))
+    g[2][3].push(Piece("Q", 3))
+    print g
     g.start()
 
-gobby("rr", 1, 100)
+gobby("rr", 2, 100)
