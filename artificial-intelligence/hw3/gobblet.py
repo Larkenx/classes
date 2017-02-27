@@ -551,13 +551,6 @@ def gobby(players, level, time):
         print "Invalid player parameters!"
         return 0
 
-    g[0][0].push(Piece("P", 4))
-    g[0][1].push(Piece("P", 4))
-    g[0][2].push(Piece("P", 4))
-    g[0][3].push(Piece("Q", 3))
-    g[1][3].push(Piece("Q", 3))
-    g[2][3].push(Piece("Q", 3))
-    print g
     g.start()
 
 gobby("rr", 2, 100)
