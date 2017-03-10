@@ -1,0 +1,39 @@
+55 points total
+
+Ex. 1:
+2 pt for struct defs
+3 pts for data def (give partial credit as you see fit)
+
+Ex. 2 - 4
+1 pt for signature/purpose
+1 pt for tests
+2 pts for following template
+1 pt for code
+
+Ex. 5:
+2 pt for struct defs
+3 pts for data def ( note, it is OK if they use lists, as long as they clearly state what they are doing.)
+
+Ex. 6
+1 pt for signature/purpose
+1 pt for tests
+2 pts for following template
+1 pt for code
+
+Ex. 7:
+2 pt for struct defs
+3 pts for data def
+
+Ex. 8
+1 pt for signature/purpose
+1 pt for tests
+2 pts for following template
+1 pt for code
+
+Ex. 9: do not grade
+
+Ex.10, 11, 12  * note, Ex. 11 says to update their on-tick handler, their documentation should also be updated as well.
+1 pt for signature/purpose
+1 pt for tests
+2 pts for following template
+1 pt for code

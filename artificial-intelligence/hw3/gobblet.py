@@ -4,6 +4,7 @@
 import os
 import sys
 import types
+import time
 from copy import copy, deepcopy
 inf = float('inf')
 sys.setrecursionlimit(100000)
@@ -184,10 +185,11 @@ class Robot(Player):
 
     # Overriding play method
     def play(self, game):
+        start = time.time()
         # Robot generates an action via alpha beta search
         cls()
         print "{} is making a move...".format(self.id)
-        action = self.alpha_beta_search(game, game.difficulty + 2)
+        action = self.alpha_beta_search(game, game.difficulty*2 + 2)
         if action[0].external:
             p = game.current_player.stacks[action[0].x].pop()
             p.external = False
@@ -200,7 +202,33 @@ class Robot(Player):
         game.history.append((p,q))
         print "{} moved {} from ({},{}) to ({}, {})".format(self.id, p, p.x, p.y, q.x, q.y)
         print game
-        raw_input("[Press enter to start next turn]")
+        print "Computer took " + str(time.time() - start) + " seconds to move!"
+        print "\n"
+        # raw_input("[Press enter to start next turn]")
+
+    def alphabeta(self, state, d, a, b):
+        adjustment = -1 if state.current_player == state.p2 else 1
+        end_game = state.terminal_test()
+        if d == state.turns:
+            return state.eval()*adjustment
+        elif end_game != 0:
+            return end_game
+        elif adjustment == 1: # maximizing player
+            v = -1*inf
+            for action in state.actions():
+                v = max(v, self.alphabeta(state.next(action), d, a, b))
+                a = max(a,v)
+                if b <= a:
+                    return v
+            return v
+        else: # minimizing player
+            v = inf
+            for action in state.actions():
+                v = min(v, self.alphabeta(state.next(action), d, a, b))
+                b = min(b,v)
+                if b <= a:
+                    return v
+            return v
 
     # Evaluation function for this should be the number of possibile 4-in-a-rows
     # with current player's pieces
@@ -208,13 +236,10 @@ class Robot(Player):
     def alpha_beta_search(self, state, d): # accepts a depth parameter
         acts =  state.actions()
         if self == state.p1: # MAX
-            possibilities = [self.max_val(state.next(a), -1*inf, inf, state.turns + d) for a in acts]
-            for v in possibilities:
-                print v
-            return acts[possibilities.index(max(possibilities))]
-
-        else: # MIN
             possibilities = [self.min_val(state.next(a), -1*inf, inf, state.turns + d) for a in acts]
+            return acts[possibilities.index(max(possibilities))]
+        else: # MIN
+            possibilities = [self.max_val(state.next(a), -1*inf, inf, state.turns + d) for a in acts]
             return acts[possibilities.index(min(possibilities))]
 
     # used in Alpha-beta
@@ -227,12 +252,10 @@ class Robot(Player):
         else:
             v = -1 * inf
             for action in state.actions():
-                mval = self.min_val(state.next(action), a, b, d)
-                if mval > v:
-                    v = mval
-                if v >= b:
+                v = max(v, self.min_val(state.next(action), a, b, d))
+                if v >= b: # we found a node that's better than beta
                     return v
-                a = v if v > a else a
+                a = max(a,v) # otherwise, just set alpha to the biggest of the two
             return v
 
     def min_val(self, state, a, b, d):
@@ -240,16 +263,14 @@ class Robot(Player):
         if end_game != 0:
             return end_game
         elif d == state.turns:
-            return state.eval()
+            return state.eval()*-1
         else:
             v = inf
             for action in state.actions():
-                mval = self.max_val(state.next(action), a, b, d)
-                if mval < v:
-                    v = mval
-                if v <= a:
+                v = min(v, self.max_val(state.next(action), a, b, d))
+                if v <= a: # found a node that is less than or equal to the best alpha
                     return v
-                b = v if v < b else b
+                b = min(b, v)
             return v
 
     # used in Alpha-beta
@@ -338,7 +359,8 @@ class Game:
 
         # if we reach this point, game is over!
         cls()
-        if self.terminal_test() > 0: # P1 wins
+        end = self.terminal_test()
+        if end > 0: # P1 wins
             print self.p1.id + " won the game!"
         else: # P2 wins
             print self.p2.id + " won the game!"
@@ -393,7 +415,9 @@ class Game:
 
     # evaluation function to award a value to some cut off node
     def eval(self):
-        return 0 # len(self.threes(self.current_player)) + len(self.twos(self.current_player))
+        other_player = self.p2 if self.p1 == self.current_player else self.p1
+        return (len(self.threes(other_player))*3 + len(self.twos(other_player)))*-1 + \
+            len(self.threes(other_player))*3 + len(self.twos(other_player))
 
     # Returns 0 if p1 wins, 1 if p2 wins, and -1 if no winner yet
     def terminal_test(self):
@@ -430,7 +454,7 @@ class Game:
     def get_stacks(self):
         stacks = [cell for row in self.board for cell in row if cell.peek() != [] and cell.peek().owner == self.current_player.id]
         p_stacks = [x for x in self.current_player.stacks if x.peek() != []]
-        return (stacks + p_stacks)
+        return (p_stacks +stacks)
 
     # Returns all of the possible locations a given piece can move to. This only considers the current_player
     def get_valid_locations(self, piece_loc):
@@ -490,12 +514,12 @@ class Game:
         #     # print "({},{}) to ({}, {})".format(p1.x, p1.y, q.x, q.y)
         #     raw_input("")
 
-## Players can have different character repesentations.
+### Players can have different character repesentations.
 # Their pieces on the board are represented as a string of the player ID
 # and the size of the piece. So, the smallest possible piece for player 'P' would be
 # represented by a string "P1". Ownership of pieces is also linked by this player ID.
 # So, player ID's cannot be the same! I am using P and Q for my example players.
-test_game = Game(Player("P"), Player("Q"), 0, 0)
+# test_game = Game(Player("P"), Player("Q"), 0, 0)
 ## Terminal State Tests...
 ## Row test
 # test_game[0][0].push(Piece("Q", 2))
@@ -520,7 +544,6 @@ test_game = Game(Player("P"), Player("Q"), 0, 0)
 # test_game[2][1].push(Piece("P", 4))
 # test_game[3][0].push(Piece("P", 4))
 # print test_game.terminal_test()
-
 ## Testing the Game.next method
 # test_game[1][2].push(Piece("Q", 4))
 # test_game[2][1].push(Piece("P", 3))
@@ -529,7 +552,6 @@ test_game = Game(Player("P"), Player("Q"), 0, 0)
 # ng = test_game.next((test_game.p1.stacks[0], test_game[0][0]))
 # print str(ng.current_player) + str(ng.turns)
 # print ng
-
 ## Testing the Game.actions method
 # print len(test_game.actions()) == 48 # initial move has 48 possibilities...
 # for p, q in test_game.actions():
@@ -553,4 +575,4 @@ def gobby(players, level, time):
 
     g.start()
 
-gobby("rr", 2, 100)
+gobby("rr", 0, 100)

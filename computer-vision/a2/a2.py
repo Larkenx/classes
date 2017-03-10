@@ -48,15 +48,23 @@ for f in filters:
     activated_zebras.append(activated_img)
     i += 1
 
-# Exercise 3
-D = empty_like(img)
-center = (img.shape[0] / 2, img.shape[1] / 2)
-cp = [x[center[0], center[1]] for x in activated_zebras]
+result = zeros((img.shape[0], img.shape[1], 8))
 for i in range(0, img.shape[0]):
     for j in range(0, img.shape[1]):
-        p = [x[i,j] for x in activated_zebras]
-        D[i,j] = euclidean(cp,p)
+        for k in range(0, 8):
+            print activated_zebras[k][i,j]
+            result[i, j] = [activated_zebras[k][i, j]]
 
-
-Image.fromarray(prepare_save(D)).save('zebra_texture_comparison.jpg')
+print result
+# # Exercise 3
+# D = empty_like(img)
+# center = (img.shape[0] / 2, img.shape[1] / 2)
+# cp = [x[center[0], center[1]] for x in activated_zebras]
+# for i in range(0, img.shape[0]):
+#     for j in range(0, img.shape[1]):
+#         p = [x[i,j] for x in activated_zebras]
+#         D[i,j] = euclidean(cp,p)
+#
+#
+# Image.fromarray(prepare_save(D)).save('zebra_texture_comparison.jpg')
 
