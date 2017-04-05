@@ -114,10 +114,10 @@ All the work herein is mine.
     \begin{enumerate}
         \item \textit{True}
         \item \textit{False}
-        \item \textit{False}. In the languages I am aquainted with, $x$ is not a free variable, so this is syntactically incorrect. Moreover, if it were correct syntactically, we would apply the rules by the main connective, so we would have something like $\exists x\ m(1,1) \wedge \exists x\ m(2, 2) \wedge \exists x\ m(3, 3)$ which is also false.
+        \item \textit{False}. %In the languages I am aquainted with, $x$ is not a free variable, so this is syntactically incorrect. Moreover, if it were correct syntactically, we would apply the rules by the main connective, so we would have something like $\exists x\ m(1,1) \wedge \exists x\ m(2, 2) \wedge \exists x\ m(3, 3)$ which is also false.
         \item \textit{False}
         \item \textit{False}
-        \item \textit{True}. Again, see note for \textit{c}. Here, $\exists x$ is our main connective, so we get $\forall x\ m(1,1) \vee \forall x\ m(2, 2) \vee \forall x\ m(3, 3)$ and this is true since $m(1,1)$ is true.
+        \item \textit{True}.% Again, see note for \textit{c}. Here, $\exists x$ is our main connective, so we get $\forall x\ m(1,1) \vee \forall x\ m(2, 2) \vee \forall x\ m(3, 3)$ and this is true since $m(1,1)$ is true.
     \end{enumerate}
     \item
     \begin{enumerate}
@@ -141,7 +141,7 @@ All the work herein is mine.
         c. & 1. $\neg(gray(K) \leftrightarrow silver(K)) \wedge loves(K, U)$ \\
            & 2. $(gray(K) \wedge \neg silver(K)) \vee (silver(K) \wedge \neg gray(K)) \wedge loves(K, U)$ & $\leftrightarrow$ equivalence rule\\
            & 3. $(gray(K) \wedge \neg silver(K) \wedge loves(K,U)) \vee (silver(K) \wedge \neg gray(K) \wedge loves(K, U))$ & distribute $\vee$ over $\wedge$ \\
-           & 4. $(\neg gray(K) \vee silver(K) \vee \neg loves(K,U)) \wedge (\neg silver(K) \vee gray(K) \vee \neg loves(K, U))$ & DeMorgan's
+           & 4. $\neg[(\neg gray(K) \vee silver(K) \vee \neg loves(K,U)) \wedge (\neg silver(K) \vee gray(K) \vee \neg loves(K, U))]$ & DeMorgan's
 
     \end{tabular}\\\\
     \textit{\textbf{Conclusion (converted to CNF)}}\\
