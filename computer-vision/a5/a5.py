@@ -1,5 +1,6 @@
 from pylab import *
 from numpy import *
+from matplotlib import collections as mc
 from PIL import Image
 import sift
 
@@ -46,32 +47,106 @@ def pairwise_dist(im1, im2):
 def plot_local_feats(imname1, imname2):
     aim1 = array(Image.open(imname1).convert('L'))
     aim2 = array(Image.open(imname2).convert('L'))
-    offset = aim2.shape[1] - aim1.shape[1]
-    aim1 = concatenate((aim1, zeros((aim1.shape[0], offset))), axis=1)
+    offset = aim2.shape[0] - aim1.shape[0]
+    aim1 = concatenate((aim1, zeros((offset,aim1.shape[1]))), axis=0)
     # We have to add a black padding/border to make the two images
     # the same size so they can be plotted together
 
     sift.process_image(imname1, 'tmp1.sift')
     sift.process_image(imname2, 'tmp2.sift')
-    l1,d1 = sift.read_features_from_file('tmp1.sift')
+    l1, d1 = sift.read_features_from_file('tmp1.sift')
     l2, d2 = sift.read_features_from_file('tmp2.sift')
 
     # Now we have the two features, we can build the distance matrix
     D = pairwise_dist(d1, d2)
+
     # for each feature in d1, find the minimum distance in d2 features that matches
+    lines = empty((50, 2, 2)) # [ [[x1,y1], [x2,y2]], ...]
+    li = 0
+    min_list = empty((D.shape[0]))
+
     for i in range(0, D.shape[0]):
-        D[i]
+        min_list[i] = min(D[i])
+
+    min_list = sort(min_list)
+
+    for i in range(0, D.shape[0]):
+        for j in range(0, D.shape[1]):
+            if (D[i,j] in min_list[:50]):
+                lines[li][0] = l1[i,:2]
+                lines[li][1] = l2[j,:2]
+                lines[li][1][0] += aim1.shape[1]
+                li += 1
 
 
-
-    plot_img = concatenate((aim1, aim2), axis=0)
-
-
-
+    fig, ax = subplots()
+    ax.add_collection(mc.LineCollection(lines))
+    plot_img = concatenate((aim1, aim2), axis=1)
     imshow(plot_img)
+    axis("off")
+    savefig("matching.png", bbox_inches=None, dpi=fig.dpi)
     show()
 
-plot_local_feats("box.png", "box_in_scene.png")
+# plot_local_feats("box.png", "box_in_scene.png")
+
+
+def plot_circs_match(imname1, imname2, circle=False):
+
+    def draw_circle(c,r):
+        t = arange(0,1.01,.01)*2*pi
+        x = r*cos(t) + c[0]
+        y = r*sin(t) + c[1]
+        plot(x,y,"b",linewidth=2)
+
+    aim1 = array(Image.open(imname1).convert('L'))
+    aim2 = array(Image.open(imname2).convert('L'))
+    offset = aim2.shape[0] - aim1.shape[0]
+    aim1 = concatenate((aim1, zeros((offset, aim1.shape[1]))), axis=0)
+
+    sift.process_image(imname1, 'tmp1.sift')
+    sift.process_image(imname2, 'tmp2.sift')
+    l1, d1 = sift.read_features_from_file('tmp1.sift')
+    l2, d2 = sift.read_features_from_file('tmp2.sift')
+
+    # Now we have the two features, we can build the distance matrix
+    D = pairwise_dist(d1, d2)
+
+    # for each feature in d1, find the minimum distance in d2 features that matches
+    lines = empty((50, 2, 2)) # [ [[x1,y1], [x2,y2]], ...]
+    li = 0
+    min_list = empty((D.shape[0]))
+
+    for i in range(0, D.shape[0]):
+        min_list[i] = min(D[i])
+
+    min_list = sort(min_list)
+
+    for i in range(0, D.shape[0]):
+        for j in range(0, D.shape[1]):
+            if (D[i,j] in min_list[:50]):
+                lines[li][0] = l1[i,:2]
+                lines[li][1] = l2[j,:2]
+                lines[li][1][0] += aim1.shape[1]
+                li += 1
+
+
+    fig, ax = subplots()
+    ax.add_collection(mc.LineCollection(lines))
+
+    imshow(concatenate((aim1, aim2), axis=1))
+    for p in l1:
+        draw_circle(p[:2],p[2])
+
+    for p in l2:
+        draw_circle(p[:2] + [aim1.shape[1], 0], p[2])
+
+    axis("off")
+    savefig("matching_with_circles.png", bbox_inches="tight")
+    show()
+
+# plot_circs_match("box.png", "box_in_scene.png", circle=True)
+
+
 
 
 
