@@ -206,11 +206,14 @@ All the work herein is mine.
         \end{tabular}\\\\
         \textit{\textbf{Resolution Refutation}}\\
         \begin{tabular}{lll}
-            i. & $\exists x(red(x))$ & Conclusion\\
-            ii. & $[[pushable, O],[pushable, C],[[green,x],[red,x]],$ & Pythonic Representation\\
-                & $[[[pushable, G(x)], [\neg, green, G(x)]], [pushable,y], [red,y]]]$
+            i. & $\neg \exists x(red(x))$ & $\neg$ Conclusion\\
+            ii. & $\neg red(x)$ & Drop universal quantifier\\
+            iii. & $[[pushable, O],[pushable, C],[[green,x],[red,x]],$ & Premises and Conclusion\\
+                & $[[[pushable, G(x)], [\neg, green, G(x)]], [pushable,y], [red,y]], [\neg, red, x]]$
         \end{tabular}\\\\
     \end{enumerate}
+
+    \item % 6
 
 
 \end{enumerate}
