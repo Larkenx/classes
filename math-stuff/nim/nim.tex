@@ -1,0 +1,214 @@
+% LaTeX Article Template - customizing header and footer
+\documentclass{article}
+
+\newtheorem{thm}{Theorem}
+
+% Set left margin - The default is 1 inch, so the following
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the header
+\setlength{\headheight}{0.1in}
+
+% Set vertical distance between the header and the text
+\setlength{\headsep}{0.2in}
+
+% Set height of the text
+\setlength{\textheight}{9in}
+
+% Set vertical distance between the text and the
+% bottom of footer
+%\setlength{\footskip}{0.15in}
+
+% Set the beginning of a LaTeX document
+\usepackage{multirow}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\graphicspath{%
+    {converted_graphics/}% inserted by PCTeX
+    {/}% inserted by PCTeX
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}\title{Nim\\ Spring 2017\\ Math-M330}         % Enter your title between curly braces
+\author{Steven Myers}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+
+% Redefine "plain" pagestyle
+\makeatother     % `@' is restored as a "non-letter" character
+
+% Set to use the "plain" pagestyle
+\pagestyle{plain}
+
+\section*{Rules of Nim}
+
+% Topics you must include:
+% How the game is played;
+% M- and N- positions;
+% Nim addition (bitwise XOR);
+% how one uses Nim addition to determine whether a position is M or N;
+% the optimal strategy for playing Nim.
+
+\paragraph{}
+Nim is a two player game. It can played with several different collections of items, such as dice, coins, sticks or cards. We will assume that our version of Nim uses a traditional deck of cards. To play the game, rows of cards must be laid out. The number of cards in each row can change from game to game. For example, one possible initial board set-up could be three rows of cards, each row containing 3 cards. Whenever it is a player's turn, they must take \textit{at least} one card from the board. The player may take as many cards from the same row as they like. Players take turns until there are no cards left on the table. In our version of Nim, the player who takes the last card(s) from the board wins the game. This is called the \textit{normal} form of the game. Alternatively, there is a \textit{mis\`ere} form of the game in which the last player who takes a card \textit{loses}.\\
+
+\begin{figure}[h]
+    \center
+    \begin{BVerbatim}
+Turns  0   1   2   3
+      xxx xxx xxx
+      xxx xxx
+      xxx
+    \end{BVerbatim}
+    \caption{Sample Nim Game, where $x$ is a card}
+\end{figure}
+
+\paragraph{}
+We can distinguish the two players of the game by whoever goes first. We'll call the person to make the first move player $M$, and the second player $N$. In the example game above, we would say that $M$ is the winner, since $M$ takes the last row of cards in turn 2. Since each player \textit{must} take a card each turn, the game is deterministic and there is always exactly one winner who takes the last card. We will find that not only is Nim deterministic, but a winner can be predicted for every single initial board set-up assuming players play optimally. In other words, Nim is a \textit{solved game}.
+
+\pagebreak
+\section*{M and N Positions}
+
+\paragraph{}
+In order to show that Nim is a solved game, we can look at some trivial board set-ups where the winner is immediately obvious, then we can move on to more complex board set ups. First, let us come up with a notation for boards. We can represent them as a vector or list of numbers, where each element represents a row and number of cards in that row.\\
+
+\begin{figure}[h]
+    \center
+    \begin{BVerbatim}
+     xxx                  x
+     xxx                  xx
+     xxx                  xxx
+
+Board = (3, 3, 3)    Board = (1, 2, 3)
+    \end{BVerbatim}
+    \caption{Some example vector representations of the game boards}
+\end{figure}
+
+\paragraph{}
+The simplest board set up we can think of is $Board = NULL$ or alternatively $Board = (0)$, where there are no initial cards on the board. In this board set up, the second player, $N$, is actually the winner. We can revise our rules of Nim to clarify that a player \textit{loses} if they are unable to take a card when it is there turn. This makes it more clear that $M$ loses the game when there are no initial cards.
+
+\paragraph{}
+In the game where $Board = ( 1 )$, $M$ always wins because $M$ always takes the last and only card. In fact, a board in which there is only one row and at least one card is \textit{always} a win for $M$, since player $M$ can always take all of the cards in the single row. Thus, we call such board set-ups or games $M$ or $N$ positions to indicate that either $M$ or $N$ will always win that given position.
+
+\paragraph{}
+A crucial aspect of analyzing Nim games is understanding that each turn of a Nim game is effectly a new game board, which is in and of itself either an $M$ or $N$ position. Once again, looking at a trivial case, an initial game with $Board = ( 1 )$ becomes $Board = (0)$ after $M$ takes the first move. We know that $Board = (1)$ is a win for $M$, and $Board = (0)$ is a win for $N$. This makes sense because $M$ effectively becomes $N$ in the second turn of the game. We can think of $M$ as the \textit{player on move} and $N$ as the \textit{player on deck}, and they swap each turn.
+
+\section*{A Strategy for Nim}
+\paragraph{}
+Even in the trivial examples, a strategy for winning a game of Nim becomes obvious early on. If we are player $M$, we want to make a move that will make the next board state become a board which guarantees that $N$ will win. So, if we have some game board position $P$, we can win the game if we are able to make a move such that the resulting game $P'$ is an $N$ winning position.
+
+\paragraph{}
+Using this strategy and our trivial cases with Nim games consisting of single rows or no cards at all, we can begin to reason about Nim games with two rows of cards. Once again, we can begin with the trivial example, where we have two rows with a single card each.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{|c|c|l|}
+\hline
+Turn & Board & Move\\
+\hline
+ 0 & $(1,1)$ & Player 1 takes 1 card from row 1\\
+ 1 & $(1)$ & Player 2 takes 1 card from the last row\\
+ 2 & $(0)$ & Player 1 loses\\
+\hline
+\end{tabular}
+\caption{Full Nim game for trivial 2-row game}
+\end{figure}
+
+\paragraph{}
+So, in the trivial case for two rows containing 1 card each, we find that no matter what, Player 2 wins. This means that $Board = (1,1)$ is an $N$ position. No matter what move $M$ makes, $M$ always loses. Looking back to our strategy, if we \textit{cannot} come up with a move that puts a our board into some position $P'$ that is an $N$ position, $M$ cannot win the game.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Board} & \textbf{Winner}\\
+\hline
+$(0)$ & $N$\\
+\hline
+$(1)$ & $M$\\
+\hline
+$(c)$  & $M$ where $c \ge 1$\\
+\hline
+$(1,1)$ & $N$\\
+\hline
+$(1,2)$ & $M$\\
+\hline
+$(1, c)$ & $M$ where $c > 1$\\
+\hline
+$(c, c)$ & $N$ for all $c$\\
+\hline
+$(c, d)$ & $M$ where $c$ and $d \ge 1,\ c \neq d$\\
+\hline
+$(c,c,c)$ & $M$ for all $c$\\
+\hline
+$(c,c,d)$ & $M$ where $c \neq d$\\
+\hline
+\end{tabular}
+\caption{Trivial M and N Positions}
+\end{figure}
+
+\paragraph{}
+We can exhaustively search for all trivial games and determine whether or not they are $M$ or $N$ positions, then iterate through possible $P'$ positions from our current board that is a triovare \textit{reachable} from our current board. However, this becomes burdensome (computationally expensive) as board sizes become larger and possible positions become numerous. Fortunately, we can determine whether or not some position is an $N$ position by some game algebra and bitwise operations.
+
+\section*{Bitwise XOR and Solving for N Positions}
+
+\paragraph{}
+In order to solve for the winner of a particular Nim game without searching through all the possible moves in a game and its sub-games, we need to convert our game board representation into a format that can easily determine whether or not it can be reduced to $(0)$ game, where $N$ wins. Semantically, we want to show that an $N$-position can always be reduced to the $(0)$ position of the game, and moreover that all $N$ positions are \textit{congruent} with respect to the winner of the game. By extension, a position $P$ is congruent to a position $Q$ if $P + Q$ is an $N$-position. We will call adding two Nim game positions \textit{Nim addition}.
+
+\paragraph{}
+All game positions can be converted to binary representations, which allow us to easily perform \textit{bitwise XOR} over the the positions to get from one position to the next. This bitwise XOR operation is our Nim addition concept, introduced in the previous paragraph. So, we can add two positions together by performing bitwise XOR operations on the two positions converted to a binary representation.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Binary & Decmial\\
+\hline
+$011_{2}$ & $3_{10}$\\
+$011_{2}$ & $3_{10}$\\
+\hline
+\end{tabular}
+\caption{Binary Representation for $P = (3,3)$}
+\end{figure}
+\pagebreak
+\paragraph{}
+Let's consider a game position we know to be an $N$ position and show that when we perform bitwise xor, we resolve to $(0)$ game. One $N$ position is $P = (3,3)$. We can equivalently write $P$ as $(1, 2, 1, 2)$ by expanding each row of the game position into factors of 2. We call these factors of 2 \textit{generators}. Once we've expanded a Nim position into its generators, we can easily convert it a binary expression. This is shown in Figure 5, and the result of the bitwise xor in Figure 6. As predicted, 
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{|c|}
+\hline
+Binary XOR\\
+\hline
+$011_{2}$\\
+$011_{2}$\\
+\hline
+$000_{2}$\\
+\hline
+\end{tabular}
+\caption{Binary XOR for $P = (3,3)$}
+\end{figure}
+
+\paragraph{}
+
+
+
+\end{document}
