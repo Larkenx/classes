@@ -4,6 +4,9 @@ from matplotlib import *
 from PIL import Image
 from pylab import *
 
+
+"""Taken from the book"""
+
 def process_image(imagename,resultname,params="--edge-thresh 10 --peak-thresh 5"):
     if imagename[-3:] != "pgm":
         # create a pgm file
