@@ -183,7 +183,8 @@ All the work herein is mine.
         \begin{tabular}{lll}
             i. & $\forall x (pushable(x) \rightarrow green(x)) \rightarrow \forall y (\neg pushable(y) \rightarrow red(y))$ & FOL\\
             ii. & $\exists x(pushable(x) \wedge \neg green(x)) \vee \forall y(pushable(y) \vee red(y))$ & $\rightarrow$ elimination and $\neg\neg$ elimination\\
-            iii. & $(pushable(G(x)) \wedge \neg green(G(x)) \vee pushable(y) \vee red(y)$& Drop $\forall y$ and skolemize $\exists x$ with $G(x)$
+            iii. & $(pushable(G(x)) \wedge \neg green(G(x)) \vee pushable(y) \vee red(y)$& Drop $\forall y$ and skolemize $\exists x$ with $G(x)$\\
+            iiii. & $[[[[pushable, G(x)], [\neg, green, G(x)]], [pushable,y], [red,y]]]$ & Pythonic Representation\\
         \end{tabular}
         \item All objects are either green or red.\\
         \begin{tabular}{lll}
@@ -203,7 +204,12 @@ All the work herein is mine.
             i. & $\neg pushable(O)$ & FOL and CNF\\
             ii. & $[[pushable, O]]$  & Pythonic Representation
         \end{tabular}\\\\
-
+        \textit{\textbf{Resolution Refutation}}\\
+        \begin{tabular}{lll}
+            i. & $\exists x(red(x))$ & Conclusion\\
+            ii. & $[[pushable, O],[pushable, C],[[green,x],[red,x]],$ & Pythonic Representation\\
+                & $[[[pushable, G(x)], [\neg, green, G(x)]], [pushable,y], [red,y]]]$
+        \end{tabular}\\\\
     \end{enumerate}
 
 
