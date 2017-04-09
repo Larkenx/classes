@@ -103,7 +103,7 @@ Board = (3, 3, 3)    Board = (1, 2, 3)
 \end{figure}
 
 \paragraph{}
-The simplest board set up we can think of is $Board = NULL$ or alternatively $Board = (0)$, where there are no initial cards on the board. In this board set up, the second player, $N$, is actually the winner. We can revise our rules of Nim to clarify that a player \textit{loses} if they are unable to take a card when it is there turn. This makes it more clear that $M$ loses the game when there are no initial cards.
+The simplest board set up we can think of is $Board = NULL$ or alternatively $Board = (0)$, where there are no initial cards on the board. In this board set up, the second player, $N$, is actually the winner. We can revise our rules of Nim to clarify that a player \textit{loses} if they are unable to take a card when it is their turn. This makes it more clear that $M$ loses the game when there are no initial cards.
 
 \paragraph{}
 In the game where $Board = ( 1 )$, $M$ always wins because $M$ always takes the last and only card. In fact, a board in which there is only one row and at least one card is \textit{always} a win for $M$, since player $M$ can always take all of the cards in the single row. Thus, we call such board set-ups or games $M$ or $N$ positions to indicate that either $M$ or $N$ will always win that given position.
@@ -190,7 +190,7 @@ $011_{2}$ & $3_{10}$\\
 \end{figure}
 \pagebreak
 \paragraph{}
-Let's consider a game position we know to be an $N$ position and show that when we perform bitwise xor, we resolve to $(0)$ game. One $N$ position is $P = (3,3)$. We can equivalently write $P$ as $(1, 2, 1, 2)$ by expanding each row of the game position into factors of 2. We call these factors of 2 \textit{generators}. Once we've expanded a Nim position into its generators, we can easily convert it a binary expression. This is shown in Figure 5, and the result of the bitwise xor in Figure 6. As predicted, 
+Let's consider a game position we know to be an $N$ position and show that when we perform bitwise xor, we resolve to $(0)$ game. One $N$ position is $P = (3,3)$. We can equivalently write $P$ as $(1, 2, 1, 2)$ by expanding each row of the game position into factors of 2. We call these factors of 2 \textit{generators}. Once we've expanded a Nim position into its generators, we can easily convert it a binary expression. This is shown in Figure 5, and the result of the bitwise xor in Figure 6. As predicted, the binary xor or nim addition yields $000_{2}$ which is equivalent to $P = (0)$.
 
 \begin{figure}[h]
 \centering
@@ -208,7 +208,7 @@ $000_{2}$\\
 \end{figure}
 
 \paragraph{}
-
+If we want to find a move such that the new move yields an $N$ position and we are currently in an $M$ position, then we need to simply flip a single bit such that the new game position yields the $(0)$ game position when we evaluate using Nim addition. 
 
 
 \end{document}
