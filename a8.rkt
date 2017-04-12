@@ -48,5 +48,12 @@
 
 
 
+(define v (vector 1))
+(vector-set! v 0 2)
+(check-expect (equal? (vector 2) v) #t) 
+                       
+                     
+
+
 
          
