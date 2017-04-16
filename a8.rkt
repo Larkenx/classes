@@ -50,7 +50,30 @@
 
 (define v (vector 1))
 (vector-set! v 0 2)
-(check-expect (equal? (vector 2) v) #t) 
+(check-expect (equal? (vector 2) v) #t)
+
+
+
+(define (matrix-gen r c p)
+  (letrec
+      [(new-matrix (make-vecimg ...))
+      
+      (row-helper (lambda (r c)
+                (if (= r -1) ; original r
+                    (void)
+                    (begin
+                      (vecimg-set! new-matrix r c (p r c))
+                      (row-helper (sub1 r) c)))))
+    
+    (col-helper (lambda (r c)
+                  (if (= c -1)
+                      (void)
+                      (begin
+                        (row-helper r c)
+                        (col-helper r (sub1 c))))))]
+    (col-helper r c)))
+                      
+         
                        
                      
 
