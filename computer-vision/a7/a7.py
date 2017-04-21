@@ -7,13 +7,16 @@ import operator
 from shutil import copyfile
 from os import listdir
 from os.path import isfile, join
+from sklearn.neighbors import NearestNeighbors
 
 # Problem Two: Image retrieval using Bag-of-words
 categories = ["airplanes", "camera", "chair", "crab", "crocodile", "elephant", "headphone", "pizza", "soccer_ball", "starfish"]
 image_to_sift = []
 path = "/Users/larken/class/computer-vision/a7/object_categories/"
 sift_path = "/Users/larken/class/computer-vision/a7/sift_features/"
+
 # Generating sift files for every image, stored under sift_features/*.sift
+'''
 for c in categories:
     cat_path = path + c + '/'
     images = [f for f in listdir(cat_path) if isfile(join(cat_path, f))]
@@ -21,39 +24,38 @@ for c in categories:
     for f in images:
         sift.process_image(join(cat_path, f), "{0}{1}_{2}.sift".format(sift_path, c, suffix))
         suffix += 1
+'''
+# Once we generate the sift data for all of the images, we don't need to do it again
+
+'''
 # Reading sift features from files to do k-means clustering. Only using the first image for each category
 all_kps, all_feats = [], []
 sift_files = [f for f in listdir(sift_path) if isfile(join(sift_path, f))]
-
-for f in sift_files:
-    keypoints, descriptors = sift.read_features_from_file(sift_path + f)
+# Grab sift features from the first of each category
+for c in categories:
+    keypoints, descriptors = sift.read_features_from_file(sift_path + c + "_1.sift")
     all_kps.append(keypoints)
     all_feats.append(descriptors)
-
+# Do clustering
 features = vstack(all_feats)
 centroids, variance = kmeans(features, 200)
 code, distance = vq(features, centroids)  # associate features with centroids
-histograms = empty((..., 200))
-h_index = -1
-for cat in categories:
-    for i in range(1,801):
-        # print i
-        # Read in the feature for the current image. We need to go through all n 128D vectors,
-        # and compare each descriptor to all centroids. We take the argmin and update the histogram with the min
-        suffix = ("0" * (4 - len(str(i)))) + str(i)
-        file_name = "{0}{1}_{2}.sift".format(sift_path, cat, suffix)
-        print file_name
-        current_location, current_feats = sift.read_features_from_file(file_name)
-        # Grab each feature from the images' features
-        for f in current_feats:
-            # Compare this feature to all centroids
-            distance_mapping = [euclidean(f, c) for c in centroids] # mapping of distance to each centroid index
-            closest_centroid = argmin(distance_mapping)
-            histograms[h_index + i, closest_centroid] += 1 # update the count for this centroid
+# Create histograms for every image
+histograms = empty((len(sift_files), 200))
+i = 0
+for f in sift_files:
+    current_location, current_feats = sift.read_features_from_file(sift_path + f)
+    # Grab each feature from the images' features
+    for f in current_feats:
+        # Compare this feature to all centroids
+        distance_mapping = [euclidean(f, c) for c in centroids] # mapping of distance to each centroid index
+        closest_centroid = argmin(distance_mapping)
+        histograms[i, closest_centroid] += 1 # update the count for this centroid
 
-    h_index += 800
+    i += 1
 
 savetxt("complete_histograms.txt", histograms.astype(int))
+'''
 
 # Now that we've generated the histogram and saved it to the disk as "complete_histograms.txt", we can easily load it
 # into our program. We're ready to start querying images.
