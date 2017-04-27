@@ -1,7 +1,10 @@
 from numpy import *
 from os import listdir
 from os.path import isfile, join
+import os
 import cv2
+
+project_dir = "/Users/larken/class/computer-vision/a8/"
 
 def draw_flow(im,flow,step=16):
     """ Plot optical flow at sample points
@@ -59,3 +62,43 @@ def xyt(sequence_dir):
     label = int(sequence_dir.split('_')[1])
     frames = sorted(fnames, key = lambda x: int(x.split('_')[1].split('.')[0]))
     return label, np.stack([cv2.imread(os.path.join(sequence_dir,f)) for f in frames])
+
+def get_HOG_of_frame(frame):
+    """Extracts histogram of gradients for a single frame. Divide the frame into 5-by-5 spatial regions,
+    and then count the number of pixels (in each region) belonging to each of 9 gradient orientation bins."""
+    HOGS = []
+    im = float32(frame) / 255.0
+
+    # Create 5x5 spatial regions
+    for r in hsplit(im, 5):
+        for region in vsplit(r,5):
+            # For this region, calculate gradient directions and store in HOG
+            HOG = zeros_like(arange(9), dtype=uint8)
+            gx = cv2.Sobel(region, cv2.CV_32F, 1, 0, ksize=1)
+            gy = cv2.Sobel(region, cv2.CV_32F, 0, 1, ksize=1)
+            mag, angle = cv2.cartToPolar(gx, gy, angleInDegrees=True)
+            for dir in angle.flatten():
+                if dir > 180:
+                    dir = dir % 180
+                bin = int(floor(dir / 20))
+                if bin == 9:
+                    HOG[bin-1] += 1
+                else:
+                    HOG[bin] += 1
+
+            HOGS.append(HOG)
+
+    return array(HOGS).flatten()
+
+def video_HOG_average(sequence_dir):
+    labels, frames = xyt(sequence_dir)
+    average_HOG = zeros_like(arange(255))
+    for f in frames:
+        averaged_HOG =+ get_HOG_of_frame(f)
+
+
+
+
+jpl_path = project_dir + "jpl/"
+
+video_HOG_average(jpl_path + "1_1")
