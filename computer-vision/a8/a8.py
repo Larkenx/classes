@@ -60,24 +60,34 @@ for f in thomas_frames:
 def xyt(sequence_dir):
     fnames = os.listdir(sequence_dir)
     label = int(sequence_dir.split('_')[1])
-    frames = sorted(fnames, key = lambda x: int(x.split('_')[1].split('.')[0]))
-    return label, np.stack([cv2.imread(os.path.join(sequence_dir,f)) for f in frames])
+    # frames = sorted(fnames, key = lambda x: int(x.split('_')[1].split('.')[0]))
+    return label, stack([cv2.imread(os.path.join(sequence_dir,f)) for f in fnames])
 
 def get_HOG_of_frame(frame):
     """Extracts histogram of gradients for a single frame. Divide the frame into 5-by-5 spatial regions,
     and then count the number of pixels (in each region) belonging to each of 9 gradient orientation bins."""
     HOGS = []
     im = float32(frame) / 255.0
+    gx = cv2.Sobel(im, cv2.CV_32F, 1, 0, ksize=1)
+    gy = cv2.Sobel(im, cv2.CV_32F, 0, 1, ksize=1)
+    mag, angle = cv2.cartToPolar(gx, gy, angleInDegrees=True)
+    angle = uint8(angle)
 
     # Create 5x5 spatial regions
-    for r in hsplit(im, 5):
-        for region in vsplit(r,5):
+    v_offset = int(ceil(angle.shape[1] / 5))
+    h_offset = int(ceil(angle.shape[0] / 5))
+    for i in range(0, angle.shape[1], v_offset):
+        for j in range(0, angle.shape[0], h_offset):
+            x_window = i+v_offset
+            y_window = j+h_offset
+            if i+v_offset >= angle.shape[1]:
+                x_window = angle.shape[1]
+            if j+h_offset >= angle.shape[0]:
+                y_window = angle.shape[0]
+            region = angle[i:x_window, j:y_window]
             # For this region, calculate gradient directions and store in HOG
             HOG = zeros_like(arange(9), dtype=uint8)
-            gx = cv2.Sobel(region, cv2.CV_32F, 1, 0, ksize=1)
-            gy = cv2.Sobel(region, cv2.CV_32F, 0, 1, ksize=1)
-            mag, angle = cv2.cartToPolar(gx, gy, angleInDegrees=True)
-            for dir in angle.flatten():
+            for dir in region.flatten():
                 if dir > 180:
                     dir = dir % 180
                 bin = int(floor(dir / 20))
@@ -88,17 +98,32 @@ def get_HOG_of_frame(frame):
 
             HOGS.append(HOG)
 
-    return array(HOGS).flatten()
+    result = array(HOGS).flatten()
+    return result
 
 def video_HOG_average(sequence_dir):
-    labels, frames = xyt(sequence_dir)
+    label, frames = xyt(sequence_dir)
     average_HOG = zeros_like(arange(255))
+    i = 0
     for f in frames:
+        print "Processing frame {0}".format(i)
         averaged_HOG =+ get_HOG_of_frame(f)
+        i += 1
 
-
-
+    return label, averaged_HOG / frames.shape[0]
 
 jpl_path = project_dir + "jpl/"
-
 video_HOG_average(jpl_path + "1_1")
+
+# sequence_directories = [jpl_path + dir for dir in listdir(jpl_path) if dir != '.DS_Store']
+# activity_ids = []
+# averaged_videos = []
+# for i in range(0, len(sequence_directories)):
+#     print "Processing directory {0}".format(sequence_directories[i])
+#     label, avg_HOG = video_HOG_average(sequence_directories[i])
+#     activity_ids.append(label)
+#     averaged_videos.append(avg_HOG)
+#
+# averaged_videos = array(averaged_videos)
+# savetxt("averaged_video_hogs", averaged_videos)
+
