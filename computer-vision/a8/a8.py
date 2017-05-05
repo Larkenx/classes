@@ -114,6 +114,7 @@ def video_HOG_average(sequence_dir):
 
 jpl_path = project_dir + "jpl/"
 sequence_directories = [jpl_path + dir for dir in listdir(jpl_path) if dir != '.DS_Store']
+
 '''Averaging all of the HOG's from every video. Sampling every 6 frames.
 I wrote this to the disk because it took forever!'''
 # averaged_videos = []
@@ -133,12 +134,14 @@ I wrote this to the disk because it took forever!'''
 # averaged_videos = array(averaged_videos)
 # averaged_videos = loadtxt("averaged_video_hogs")
 # labeled_avg_vids = zip(activity_ids, averaged_videos)
-#
+
 # labels, first_hog_avg = video_HOG_average(jpl_path + "1_1")
 # savetxt("first_hog_avg", first_hog_avg)
 # first_hog_avg = loadtxt("first_hog_avg")
-labels, sec_hog_avg = video_HOG_average(jpl_path + "2_2")
-savetxt("sec_hog_avg", sec_hog_avg)
+# labels, sec_hog_avg = video_HOG_average(jpl_path + "2_2")
+# savetxt("sec_hog_avg", sec_hog_avg)
+# sec_hog_avg = loadtxt("sec_hog_avg")
+
 
 def show_hog(hog, fname):
     x_offset = 50
