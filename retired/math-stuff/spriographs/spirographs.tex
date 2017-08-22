@@ -1,0 +1,87 @@
+% LaTeX Article Template - customizing header and footer
+\documentclass{article}
+
+\newtheorem{thm}{Theorem}
+
+% Set left margin - The default is 1 inch, so the following
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the header
+\setlength{\headheight}{0.1in}
+
+% Set vertical distance between the header and the text
+\setlength{\headsep}{0.2in}
+
+% Set height of the text
+\setlength{\textheight}{9in}
+
+% Set vertical distance between the text and the
+% bottom of footer
+%\setlength{\footskip}{0.15in}
+
+% Set the beginning of a LaTeX document
+\usepackage{multirow}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption}
+\graphicspath{%
+    {converted_graphics/}% inserted by PCTeX
+    {/}% inserted by PCTeX
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}\title{Spriographs\\ Spring 2017\\ Math-M330}         % Enter your title between curly braces
+\author{Steven Myers}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+
+% Redefine "plain" pagestyle
+\makeatother     % `@' is restored as a "non-letter" character
+
+% Set to use the "plain" pagestyle
+\pagestyle{plain}
+
+\section*{Introduction to Spriographs}
+% Introduce what spirographs are. Use a picture to show the diagram
+% Talk about pencil positions, fixed wheel and moving wheel
+% Talk about revolutions and petals. Talk about what relationships between
+% the radii and the pencil position at a given time that there are
+% Discuss the relationship of radii, pencil position, and the quality of a
+% a spirograph having "loops"
+
+% What happens if rf and rm have a ratio which is irrational? Don’t just say what will happen; rather, you should explain why the shape will never close up.
+
+% Show how to classify hypotrochoids by the number of cycles it takes to close the shape, and the number of petals (small cycles) which appear in the shape. Show the relationship between these facts and the radii R and r of the large and small circles that the shape came from. Show some examples: you can use the programs to generate images.
+
+% If rf and rm are whole numbers, show the explicit formulas for the number of cycles and the number of petals in the shape as functions of rf and rm. Pick an example and show that the formula works. If rf and rm are not whole numbers - for example, if they are fractions - discuss how to find the number of cycles and petals in that case. You could just pick an example and show how to solve it in a way that could be applied to other fractions also. Briefly explain why this method works i.e. why we can ultimately reason about fractional R and r in the same way that we reason for whole numbers. (Hint: what’s the relationship between a shape created by rf = 1 and rm = 3 versus a shape created by rf = 1/5 and rm = 3/5?)
+\paragraph{}
+A \textit{spriograph}, also known as a \textit{hypotrochoid}, is a shape formed by moving a circle inside of another circle. One circle is in a fixed position and does not move, while the other circle is not fixed and moves around the interior of the other circle. We can think of these two entities as the \textit{fixed wheel} and the \textit{moving wheel}. A shape is formed by selecting a point somewhere on the moving wheel and tracing a line at that location on the moving wheel as it goes about its motion rotating within the fixed wheel. One might think of it as if you were to place a pencil at that location in the moving wheel. We will first discuss all of the important components of both wheels, then move onto examining the characteristics of different spriographs.
+
+\paragraph{}
+There are a few important variables related to the creation of spirographs. There is the radius of the fixed wheel, the radius of the moving wheel, and the location of where we will trace a line from on the moving wheel. We may also be interested in the point of contact between the moving wheel and the fixed wheel. If we change these variables, then we will get different spriographs each time. Figure 1 show examples of a spirograph being formed over multiple completed \textit{revolutions} around the fixed wheel.
+
+
+
+% \begin{figure}[H]
+%     \includegraphics[width=\linewidth, height=.2\textheight]{combined_wheels}
+%     \caption{Images created by the Chaos Game for 50, 250, and 1000 iterations respectively.}
+% \end{figure}
+
+
+\end{document}
