@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Image Gallery</title>
+<meta charset="utf-8">
+<style>
+body {
+    background-color: #333333;
+    color: #eaeaea;
+}
+#gallery {
+    position: relative;
+}
+#gallery ul {
+    width: 300px;
+    list-style: none;
+}
+#gallery li {
+    display: inline;
+    float: left;
+    padding: 10px;
+}
+#gallery img {
+    border-style: none;
+}
+#gallery a {
+    text-decoration: none;
+    color: #eaeaea;
+    font-style: italic;
+}
+#gallery span {
+    position: absolute;
+    left: -1000px;
+    opacity: 0;
+    -webkit-transition:  opacity 3s ease-in-out;
+    -moz-transition:   opacity 3s ease-in-out;
+    -o-transition:  opacity 3s ease-in-out;
+    transition:  opacity 3s ease-in-out;
+}
+
+#gallery a:hover span {
+    position: absolute;
+    top: 16px;
+    left: 320px;
+    text-align: center;
+    opacity: 1;
+}
+
+figure {
+    position: absolute;
+    left: 280px;
+    text-align: center;
+    opacity: .25;
+}
+</style>
+</head>
+<body>
+<h1>Image Gallery</h1>
+<div id="gallery">
+    <figure>
+        <img src="photo1.jpg" />
+    </figure>
+    <ul>
+        <!-- 1 -->
+        <li>
+            <a href="photo1.jpg">
+                <img src="photo1thumb.jpg" width="100" height="75" alt="Golden Gate Bridge" />
+                <span>
+                    <img src="photo1.jpg" width="400" height="300" alt="Golden Gate Bridge" />
+                    <br />Golden Gate Bridge
+                </span>
+            </a>
+        </li>
+        <!-- 2 -->
+        <li>
+            <a href="photo2.jpg">
+                <img src="photo2thumb.jpg" width="100" height="75" alt="Beach" />
+                <span>
+                    <img src="photo2.jpg" width="400" height="300" alt="Beach" />
+                    <br />Beach
+                </span>
+            </a>
+        </li>
+        <!-- 3 -->
+        <li>
+            <a href="photo3.jpg">
+                <img src="photo3thumb.jpg" width="100" height="75" alt="Forest" />
+                <span>
+                    <img src="photo3.jpg" width="400" height="300" alt="Forest" />
+                    <br />Forest
+                </span>
+            </a>
+        </li>
+        <!-- 4 -->
+        <li>
+            <a href="photo4.jpg">
+                <img src="photo4thumb.jpg" width="100" height="75" alt="Atoll" />
+                <span>
+                    <img src="photo4.jpg" width="400" height="300" alt="Atoll" />
+                    <br />Atoll
+                </span>
+            </a>
+        </li>
+        <!-- 5 -->
+        <li>
+            <a href="photo5.jpg">
+                <img src="photo5thumb.jpg" width="100" height="75" alt="Rocky Beach" />
+                <span>
+                    <img src="photo5.jpg" width="400" height="300" alt="Rocky Beach" />
+                    <br />Rocky Beach
+                </span>
+            </a>
+        </li>
+        <!-- 6 -->
+        <li>
+            <a href="photo6.jpg">
+                <img src="photo6thumb.jpg" width="100" height="75" alt="Sunset Beach" />
+                <span>
+                    <img src="photo6.jpg" width="400" height="300" alt="Sunset Beach" />
+                    <br />Sunset Beach
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
