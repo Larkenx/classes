@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vuetify Parallax Starter</title>
+  <title>BigData Analytics - Home</title>
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
 </head>
 <style>
-#big {
+  .company_title {
+    font-family: 'Bungee', cursive;
+  }
+
+.big {
     color: #46A7F5;
-    font-weight: bolder;
 }
 </style>
 <body>
  <div id="app">
    <v-app dark>
     <v-toolbar dark fixed>
-      <v-toolbar-title class="display-2">
-          <span id="big">BIG</span>Data
+      <v-toolbar-title class="display-2 company_title">
+          <span class="big">BIG</span>Data
       </v-toolbar-title>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat href="index.html">Home</v-btn>
+        <v-btn flat href="services.html">Our Services</v-btn>
+        <v-btn flat href="about.html">About Us</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <main>
       <section>
           <!--  Opening Parallax Section -->
-        <v-parallax src="assets/matrix.jpg" height="600">
+        <v-parallax src="assets/stars.jpg" height="450">
           <v-layout
             column
             align-center
@@ -116,7 +125,7 @@
               class="blue lighten-2 mt-5"
               dark
               large
-              href="/pre-made-themes"
+              href="#"
             >
               Get Started
             </v-btn>
@@ -130,13 +139,34 @@
             <v-flex xs12 sm4>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Company info</div>
+                  <div class="headline">Testimonials</div>
                 </v-card-title>
-                <v-card-text>
-                  Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                  Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-                </v-card-text>
+                <blockquote>
+                  &#8220;Data Analytics is a growing industry. BigData is leading that industry into the future!&#8221;
+                  <footer>
+                    <small>
+                      <em>&mdash;John Doe</em>
+                    </small>
+                  </footer>
+                </blockquote>
+                <p></p>
+                <blockquote>
+                  &#8220;Excellent customer service - very prompt and helpful.&#8221;
+                  <footer>
+                    <small>
+                      <em>&mdash;Jane Doe</em>
+                    </small>
+                  </footer>
+                </blockquote>
+                <p></p>
+                <blockquote>
+                  &#8220;The best thing my company has ever done is investing in BigData!&#8221;
+                  <footer>
+                    <small>
+                      <em>&mdash;Willis</em>
+                    </small>
+                  </footer>
+                </blockquote>
               </v-card>
             </v-flex>
             <v-flex xs12 sm4 offset-sm1>
@@ -183,8 +213,7 @@
         <v-layout row wrap align-center>
           <v-flex xs12>
             <div class="white--text ml-3">
-              Created
-              by <span class="white--text">Steven Myers</a>
+              Created by <span class="white--text">Steven Myers</span>
             </div>
           </v-flex>
         </v-layout>
