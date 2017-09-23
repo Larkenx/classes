@@ -178,3 +178,6 @@ INSERT INTO major VALUES(1013,'Psychology');
 INSERT INTO major VALUES(1014,'Theater');
 INSERT INTO major VALUES(1017,'Anthropology');
 INSERT INTO major VALUES(1022,'CS');
+
+-- (1)
+-- (a)
