@@ -336,7 +336,7 @@ SELECT exists(SELECT a -- all of |A-B| is equal to one of a, so there is exactly
                                               FROM B)))
        OR NOT exists(SELECT * -- or there are no members at all from A-B
                      FROM A EXCEPT SELECT *
-                                   FROM B) AS no_more_than_two;
+                                   FROM B) AS no_more_than_one;
 
 -- determining whether or not |A-B| = 1 or 0
 SELECT exists(SELECT a
@@ -348,7 +348,7 @@ SELECT exists(SELECT a
                     OR NOT exists(SELECT a
                                   FROM A
                                   WHERE a NOT IN (SELECT *
-                                                  FROM B))) AS no_more_than_two;
+                                                  FROM B))) AS no_more_than_one;
 
 \echo "2.g"
 -- (g) (10 points) Determine whether or not (A ∩ B) ̸⊇ C.
@@ -375,10 +375,10 @@ SELECT exists(
        ) AS c_is_not_subset_of_a_intersect_b;
 
 \echo "2.h"
-(10 points) Determine whether or not |A ∩ (B ∪ C)| = 2.
+-- (10 points) Determine whether or not |A ∩ (B ∪ C)| = 2.
 DROP FUNCTION a_intersect_b_union_c();
 CREATE FUNCTION a_intersect_b_union_c()
-  RETURNS TABLE(result int) AS $$
+  RETURNS TABLE(result INT) AS $$
 SELECT *
 FROM A
 INTERSECT
@@ -389,8 +389,49 @@ INTERSECT
  FROM C)
 $$ LANGUAGE SQL;
 
-select a_intersect_b_union_c();
+SELECT a_intersect_b_union_c();
 
-SELECT result
-FROM a_intersect_b_union_c()
-WHERE result >= ALL(select a_intersect_b_union_c())
+SELECT r1.result
+FROM a_intersect_b_union_c() r1
+WHERE r1.result < ALL (SELECT a_intersect_b_union_c()) AND
+      exists(SELECT r2.result
+             FROM a_intersect_b_union_c() r2
+             WHERE r2.result <> r1.result AND r2.result > ALL (SELECT));
+
+
+\echo "3.a"
+
+-- INSERT INTO p VALUES (2, 2), (-5, 1), (5, 0);
+-- INSERT INTO q VALUES (3, 3), (1, 2), (-1, 1);
+
+-- 2x^2 -5x + 5
+-- 3x^3 + 1x^2 - 1x
+
+-- (a)
+SELECT
+  coefficient,
+  degree
+FROM
+  (((SELECT * -- give me all p and q coefficients & degrees
+     FROM p -- except for those that have a coefficient with same degree in both tables
+     WHERE p.degree NOT IN (SELECT degree
+                            FROM q))
+    UNION
+    (SELECT *
+     FROM q
+     WHERE q.degree NOT IN (SELECT degree
+                            FROM p)))
+   -- for those with the same degree, we add the coefficients together
+   UNION
+   SELECT
+     p.coefficient + q.coefficient,
+     p.degree
+   FROM
+     p, q
+   WHERE p.degree = q.degree) AS result;
+
+
+\echo "3.b"
+-- (b)
+
+select q.degree + (select sum(degree) from p) from q
